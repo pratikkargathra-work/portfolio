@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>John Doe - Portfolio</title>
+  <style>
+    /* Reset and Global Styles */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; scroll-behavior: smooth; }
+    a { text-decoration: none; color: inherit; }
+    
+    /* Navigation */
+    nav {
+      width: 100%;
+      background: #333;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav .logo { font-size: 1.5em; }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { margin-left: 20px; }
+    nav ul li a { padding: 8px 12px; transition: background 0.3s; }
+    nav ul li a:hover { background: #555; border-radius: 4px; }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: url('https://via.placeholder.com/1200x800') center center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero h1 { font-size: 3em; margin-bottom: 20px; }
+    .hero p { font-size: 1.2em; margin-bottom: 20px; }
+    .hero button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      background: #f39c12;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    /* Section Container */
+    section { padding: 80px 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 40px; }
+    .section-title h2 { font-size: 2.5em; margin-bottom: 10px; }
+    .section-title p { color: #777; }
+    
+    /* About Section */
+    .about { display: flex; flex-wrap: wrap; align-items: center; }
+    .about .about-img { flex: 1 1 300px; padding: 20px; }
+    .about .about-img img { width: 100%; border-radius: 8px; }
+    .about .about-content { flex: 2 1 400px; padding: 20px; }
+    .about .about-content h3 { font-size: 2em; margin-bottom: 10px; }
+    .about .about-content p { color: #555; margin-bottom: 10px; }
+    
+    /* Skills Section */
+    .skills { display: flex; flex-wrap: wrap; justify-content: space-between; }
+    .skill { flex: 1 1 200px; margin: 10px; }
+    .skill h4 { margin-bottom: 10px; }
+    .progress { background: #eee; border-radius: 4px; overflow: hidden; }
+    .progress div {
+      height: 20px;
+      background: #f39c12;
+      line-height: 20px;
+      color: #fff;
+      text-align: right;
+      padding-right: 5px;
+      transition: width 1s ease;
+    }
+    
+    /* Services Section */
+    .services { display: flex; flex-wrap: wrap; justify-content: space-around; }
+    .service {
+      flex: 1 1 300px;
+      background: #f9f9f9;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .service img { width: 80px; height: 80px; }
+    .service h4 { margin: 10px 0; }
+    .service p { color: #777; }
+    
+    /* Resume Section */
+    .resume { display: flex; flex-wrap: wrap; }
+    .timeline { flex: 1 1 500px; padding: 20px; }
+    .timeline-item { margin-bottom: 20px; }
+    .timeline-item h4 { margin-bottom: 5px; }
+    .timeline-item span { font-size: 0.9em; color: #999; }
+    .timeline-item p { margin-top: 5px; }
+    
+    /* Projects Section */
+    .projects { text-align: center; }
+    .projects .filter { margin-bottom: 20px; }
+    .filter button {
+      padding: 10px 20px;
+      margin: 0 5px;
+      border: none;
+      background: #ddd;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .filter button.active, .filter button:hover {
+      background: #f39c12;
+      color: #fff;
+    }
+    .project-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .project-item {
+      width: calc(33.333% - 10px);
+      margin-bottom: 20px;
+    }
+    .project-item img { width: 100%; border-radius: 8px; }
+    
+    /* Clients Section */
+    .clients { background: #f9f9f9; padding: 40px 20px; }
+    .client { margin: 20px; text-align: center; }
+    .client img { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; }
+    .client p { font-style: italic; color: #555; margin-bottom: 5px; }
+    .client h5 { font-size: 1em; color: #333; }
+    
+    /* Pricing Section */
+    .pricing { display: flex; flex-wrap: wrap; justify-content: center; }
+    .price-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 10px;
+      padding: 20px;
+      flex: 1 1 250px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .price-card h3 { margin: 0; }
+    .price-card h2 { margin: 10px 0; color: #f39c12; }
+    .price-card ul { list-style: none; padding: 0; margin: 10px 0; }
+    .price-card ul li {
+      padding: 10px 0;
+      border-top: 1px solid #eee;
+    }
+    .price-card button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background: #f39c12;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    /* Contact Section */
+    .contact-form { max-width: 600px; margin: 0 auto; }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .contact-form button {
+      padding: 10px 20px;
+      border: none;
+      background: #f39c12;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .contact-info { text-align: center; margin-top: 20px; }
+    
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2em; }
+      .project-item { width: calc(50% - 10px); }
+    }
+    @media (max-width: 480px) {
+      nav .container { flex-direction: column; }
+      nav ul { flex-direction: column; margin-top: 10px; }
+      .project-item { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo">John Doe</div>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Expertise</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#pricing">Price</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div>
+      <h1>Graphic &amp; Web Designer</h1>
+      <p>Crafting stunning designs and immersive experiences.</p>
+      <button onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">
+        Learn More
+      </button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container about">
+      <div class="about-img">
+        <img src="https://via.placeholder.com/400x400" alt="About Me">
+      </div>
+      <div class="about-content">
+        <h3>About Me</h3>
+        <p>
+          I am a software developer with 4 years of expertise in mobile app development including Flutter, Android, and iOS.
+          I am passionate about creating dynamic user experiences with modern design principles.
+        </p>
+        <p>
+          My experience in freelance and collaborative projects has honed my skills in both design and development.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-title">
+        <h2>Work Expertise</h2>
+        <p>My professional skills</p>
+      </div>
+      <div class="skills">
+        <div class="skill">
+          <h4>Flutter</h4>
+          <div class="progress"><div style="width: 90%;">90%</div></div>
+        </div>
+        <div class="skill">
+          <h4>Android</h4>
+          <div class="progress"><div style="width: 85%;">85%</div></div>
+        </div>
+        <div class="skill">
+          <h4>iOS</h4>
+          <div class="progress"><div style="width: 80%;">80%</div></div>
+        </div>
+        <div class="skill">
+          <h4>UI/UX</h4>
+          <div class="progress"><div style="width: 75%;">75%</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Services</h2>
+        <p>What I Offer</p>
+      </div>
+      <div class="services">
+        <div class="service">
+          <img src="https://via.placeholder.com/80" alt="Web Design">
+          <h4>Web Design</h4>
+          <p>Creating responsive and engaging web designs.</p>
+        </div>
+        <div class="service">
+          <img src="https://via.placeholder.com/80" alt="Mobile Design">
+          <h4>Mobile Design</h4>
+          <p>Designing intuitive interfaces for mobile applications.</p>
+        </div>
+        <div class="service">
+          <img src="https://via.placeholder.com/80" alt="Marketing">
+          <h4>Marketing</h4>
+          <p>Developing strategies that enhance brand presence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume Section -->
+  <section id="resume">
+    <div class="container">
+      <div class="section-title">
+        <h2>Resume</h2>
+        <p>My professional journey</p>
+      </div>
+      <div class="resume">
+        <div class="timeline">
+          <div class="timeline-item">
+            <h4>2014-2015</h4>
+            <span>Project Team Leader &amp; Developer at IT Company, Los Angeles, USA</span>
+            <p>Led projects and developed innovative solutions.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>2015-2016</h4>
+            <span>IT Specialist &amp; Graphic Designer at Digital Studio, Amsterdam, Netherlands</span>
+            <p>Crafted designs and provided technical expertise.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>2017-2018</h4>
+            <span>Junior Web Programmer at Warta Ekonomi, New-Delhi, India</span>
+            <p>Developed front-end solutions and improved user experience.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>2018-2019</h4>
+            <span>Freelance Front-end Developer &amp; Graphic Designer</span>
+            <p>Collaborated with clients to bring their visions to life.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <p>Portfolio</p>
+      </div>
+      <div class="projects">
+        <div class="filter">
+          <button class="filter-btn active" onclick="filterProjects('all', event)">All</button>
+          <button class="filter-btn" onclick="filterProjects('web', event)">WEB DESIGN</button>
+          <button class="filter-btn" onclick="filterProjects('ui', event)">UI/UX</button>
+          <button class="filter-btn" onclick="filterProjects('graphic', event)">GRAPHIC DESIGN</button>
+        </div>
+        <div class="project-grid">
+          <div class="project-item" data-category="web">
+            <img src="https://via.placeholder.com/350x200" alt="Project 1">
+          </div>
+          <div class="project-item" data-category="ui">
+            <img src="https://via.placeholder.com/350x200" alt="Project 2">
+          </div>
+          <div class="project-item" data-category="graphic">
+            <img src="https://via.placeholder.com/350x200" alt="Project 3">
+          </div>
+          <div class="project-item" data-category="web">
+            <img src="https://via.placeholder.com/350x200" alt="Project 4">
+          </div>
+          <div class="project-item" data-category="ui">
+            <img src="https://via.placeholder.com/350x200" alt="Project 5">
+          </div>
+          <div class="project-item" data-category="graphic">
+            <img src="https://via.placeholder.com/350x200" alt="Project 6">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clients Section -->
+  <section id="clients">
+    <div class="container">
+      <div class="section-title">
+        <h2>Clients</h2>
+        <p>What they say</p>
+      </div>
+      <div class="clients">
+        <div class="client">
+          <img src="https://via.placeholder.com/80" alt="Client 1">
+          <p>"Etiam sed ultricies nibh. Suspendisse pulvinar est in eros semper cursus."</p>
+          <h5>John Doe</h5>
+        </div>
+        <div class="client">
+          <img src="https://via.placeholder.com/80" alt="Client 2">
+          <p>"Vestibulum dapibus aliquet euismod. Lorem ipsum dolor sit amet."</p>
+          <h5>Jane Smith</h5>
+        </div>
+        <div class="client">
+          <img src="https://via.placeholder.com/80" alt="Client 3">
+          <p>"In nunc erat, mollis eget ultricies vel, porta eu purus."</p>
+          <h5>Michael Brown</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h2>Price</h2>
+        <p>My service rates</p>
+      </div>
+      <div class="pricing">
+        <div class="price-card">
+          <h3>Design</h3>
+          <h2>$25/hr</h2>
+          <ul>
+            <li>24/7 Support</li>
+            <li>1000 Gb Storage</li>
+            <li>Development</li>
+            <li>Unlimited Space</li>
+          </ul>
+          <button>Buy</button>
+        </div>
+        <div class="price-card">
+          <h3>App</h3>
+          <h2>$75/hr</h2>
+          <ul>
+            <li>24/7 Support</li>
+            <li>1000 Gb Storage</li>
+            <li>Development</li>
+            <li>Unlimited Space</li>
+          </ul>
+          <button>Buy</button>
+        </div>
+        <div class="price-card">
+          <h3>Website</h3>
+          <h2>$150/hr</h2>
+          <ul>
+            <li>24/7 Support</li>
+            <li>1000 Gb Storage</li>
+            <li>Development</li>
+            <li>Unlimited Space</li>
+          </ul>
+          <button>Buy</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <p>Get in Touch</p>
+      </div>
+      <div class="contact-form">
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="Your Message" rows="5"></textarea>
+        <button>Send Message</button>
+      </div>
+      <div class="contact-info">
+        <p><strong>Phone:</strong> 700 800 100 200</p>
+        <p><strong>Email:</strong> oscar@mail.com</p>
+        <p><strong>Address:</strong> NY Brooklyn 28</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Copyright © Monothemes. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Project Filtering Functionality
+    function filterProjects(category, event) {
+      var projects = document.querySelectorAll('.project-item');
+      projects.forEach(function(project) {
+        if (category === 'all' || project.getAttribute('data-category') === category) {
+          project.style.display = 'block';
+        } else {
+          project.style.display = 'none';
+        }
+      });
+      // Update active class on filter buttons
+      var buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
