@@ -22,24 +22,24 @@
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     
-    /* Background gradient reaction to mouse pointer */
+    /* Background gradient reacting to mouse pointer */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,170,255,0.2), transparent 40%);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(210,4,45,0.2), transparent 40%);
       z-index: -1;
       transition: background 0.1s;
     }
     
-    /* Glassmorphism effect for cards and containers */
+    /* Glassmorphism effect with extra transparency */
     .glass {
-      background: linear-gradient(135deg, rgba(0,170,255,0.15), rgba(0,204,255,0.15));
+      background: linear-gradient(135deg, rgba(210,4,45,0.08), rgba(210,4,45,0.08));
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
     }
     
@@ -57,7 +57,7 @@
     .section-title h2 {
       font-size: 2.8em;
       margin-bottom: 10px;
-      background: linear-gradient(45deg, #00aaff, #00ccff);
+      background: linear-gradient(45deg, #d2042d, #e60039);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -79,7 +79,7 @@
     #about h1 {
       font-size: 4em;
       margin-bottom: 20px;
-      color: #00ccff;
+      color: #d2042d;
       font-weight: 700;
     }
     #about p {
@@ -96,25 +96,22 @@
       font-size: 1.8em;
       margin: 0 12px;
       color: #fff;
-      border: 1px solid #00ccff;
+      border: 1px solid #d2042d;
       padding: 8px;
       border-radius: 50%;
       transition: background 0.3s, transform 0.3s;
     }
-    /* Brand hover colors */
+    /* Social media hover: LinkedIn and Instagram only */
     #about .social-links a[href*="linkedin"]:hover {
       background: #0077b5;
       color: #fff;
-    }
-    #about .social-links a[href*="upwork"]:hover {
-      background: #6fda44;
-      color: #000;
     }
     #about .social-links a[href*="instagram"]:hover {
       background: #e1306c;
       color: #fff;
     }
-    /* Services Cards */
+    
+    /* Services Section */
     #services .service-cards {
       display: flex;
       flex-wrap: wrap;
@@ -131,14 +128,10 @@
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.6);
     }
-    /* Apply glass effect */
-    #services .service.glass {
-      /* Using our glass class */
-    }
     #services .service i {
       font-size: 2.8em;
       margin-bottom: 15px;
-      color: #00ccff;
+      color: #d2042d;
     }
     #services .service h4 {
       margin-bottom: 12px;
@@ -149,7 +142,7 @@
       font-size: 0.95em;
     }
     
-    /* Projects - Full Background Image with Overlay Gradient */
+    /* Projects Section - Larger Items */
     #projects .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -159,7 +152,7 @@
       position: relative;
       border-radius: 10px;
       overflow: hidden;
-      height: 250px;
+      height: 350px;
       transition: transform 0.3s, box-shadow 0.3s;
       background-size: cover;
       background-position: center;
@@ -177,36 +170,43 @@
       background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
     }
     #projects .project .overlay h4 {
-      font-size: 1.4em;
+      font-size: 1.6em;
       margin-bottom: 8px;
-      color: #00ccff;
+      color: #d2042d;
     }
     #projects .project .overlay p {
-      font-size: 0.95em;
+      font-size: 1em;
       color: #ccc;
     }
     
-    /* Testimonials - Carousel */
+    /* Testimonials Slider */
     #testimonials {
       position: relative;
-      min-height: 150px;
+      padding: 80px 0;
     }
-    #testimonial-carousel {
+    #testimonial-slider {
       max-width: 600px;
       margin: auto;
+      overflow: hidden;
       position: relative;
     }
-    #testimonial-carousel .testimonial {
-      display: none;
+    #testimonial-slider .testimonial-slide {
+      display: flex;
       align-items: center;
       padding: 20px;
-      border-radius: 10px;
-      transition: opacity 0.5s;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      opacity: 0;
+      min-height: 100px;
     }
-    #testimonial-carousel .testimonial.active {
-      display: flex;
+    #testimonial-slider .testimonial-slide.active {
+      opacity: 1;
     }
-    #testimonial-carousel .testimonial img {
+    #testimonial-slider .testimonial-slide i.quote {
+      font-size: 2em;
+      color: #d2042d;
+      margin-right: 10px;
+    }
+    #testimonial-slider .testimonial-slide img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -214,29 +214,41 @@
       margin-right: 15px;
       border: 1px solid rgba(255,255,255,0.3);
     }
-    #testimonial-carousel .testimonial .testimonial-content {
+    #testimonial-slider .testimonial-slide .testimonial-content {
       flex: 1;
     }
-    #testimonial-carousel .testimonial p {
+    #testimonial-slider .testimonial-slide p {
       font-style: italic;
       margin: 0 0 5px 0;
       color: #ccc;
       font-size: 0.95em;
     }
-    #testimonial-carousel .testimonial h5 {
+    #testimonial-slider .testimonial-slide h5 {
       font-size: 1.1em;
-      color: #00ccff;
+      color: #d2042d;
       margin: 0;
       font-weight: 600;
     }
-    /* Quote Icon */
-    #testimonial-carousel .testimonial .quote {
-      font-size: 2em;
-      color: #00ccff;
-      margin-right: 10px;
+    /* Dots Indicator */
+    #testimonial-dots {
+      text-align: center;
+      margin-top: 15px;
+    }
+    #testimonial-dots span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #testimonial-dots span.active {
+      background: #d2042d;
     }
     
-    /* Blogs */
+    /* Blogs Section */
     #blogs .blog-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -265,14 +277,14 @@
     #blogs .blog .content h4 {
       margin-bottom: 10px;
       font-size: 1.3em;
-      color: #00ccff;
+      color: #d2042d;
     }
     #blogs .blog .content p {
       font-size: 0.95em;
       color: #ccc;
     }
     
-    /* Why Choose Me */
+    /* Why Choose Me Section */
     #whyus {
       text-align: center;
       padding: 60px 20px;
@@ -299,7 +311,7 @@
     #whyus .reason i {
       font-size: 2.2em;
       margin-bottom: 15px;
-      color: #00ccff;
+      color: #d2042d;
     }
     #whyus .reason h4 {
       margin-bottom: 10px;
@@ -310,7 +322,7 @@
       color: #ccc;
     }
     
-    /* Hire Me */
+    /* Hire Me Section */
     #hireme {
       text-align: center;
       padding: 80px 20px;
@@ -321,7 +333,7 @@
     #hireme h2 {
       font-size: 2.8em;
       margin-bottom: 20px;
-      color: #00ccff;
+      color: #d2042d;
     }
     #hireme p {
       font-size: 1.1em;
@@ -332,7 +344,7 @@
       padding: 15px 30px;
       font-size: 1.1em;
       border: none;
-      background: linear-gradient(45deg, #00ccff, #00aaff);
+      background: linear-gradient(45deg, #d2042d, #e60039);
       color: #000;
       border-radius: 50px;
       cursor: pointer;
@@ -360,7 +372,7 @@
     #contact form button {
       padding: 15px;
       border: none;
-      background: linear-gradient(45deg, #00ccff, #00aaff);
+      background: linear-gradient(45deg, #d2042d, #e60039);
       color: #000;
       font-size: 1.1em;
       border-radius: 50px;
@@ -376,7 +388,7 @@
     }
     #contact .contact-info i {
       margin-right: 8px;
-      color: #00ccff;
+      color: #d2042d;
     }
     
     /* Footer */
@@ -404,7 +416,6 @@
     </p>
     <div class="social-links">
       <a href="https://www.linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.upwork.com" target="_blank" title="Upwork"><i class="fab fa-upwork"></i></a>
       <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
     </div>
   </section>
@@ -462,14 +473,14 @@
     </div>
   </section>
 
-  <!-- Testimonials Section (Carousel) -->
+  <!-- Testimonials Section with Slider -->
   <section id="testimonials" class="hidden">
     <div class="section-title">
       <h2>Testimonials</h2>
       <p>What my clients say</p>
     </div>
-    <div id="testimonial-carousel" class="glass">
-      <div class="testimonial active">
+    <div id="testimonial-slider">
+      <div class="testimonial-slide active">
         <i class="fas fa-quote-left quote"></i>
         <img src="https://via.placeholder.com/40" alt="Client 1">
         <div class="testimonial-content">
@@ -477,7 +488,7 @@
           <h5>Client One</h5>
         </div>
       </div>
-      <div class="testimonial">
+      <div class="testimonial-slide">
         <i class="fas fa-quote-left quote"></i>
         <img src="https://via.placeholder.com/40" alt="Client 2">
         <div class="testimonial-content">
@@ -485,7 +496,7 @@
           <h5>Client Two</h5>
         </div>
       </div>
-      <div class="testimonial">
+      <div class="testimonial-slide">
         <i class="fas fa-quote-left quote"></i>
         <img src="https://via.placeholder.com/40" alt="Client 3">
         <div class="testimonial-content">
@@ -494,6 +505,7 @@
         </div>
       </div>
     </div>
+    <div id="testimonial-dots"></div>
   </section>
 
   <!-- Blogs Section -->
@@ -583,7 +595,7 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Scroll Animations and Background Gradient Reaction & Testimonial Carousel -->
+  <!-- JavaScript for Scroll Animations, Background Reaction, and Testimonial Slider -->
   <script>
     // Animate sections when they come into view
     const observer = new IntersectionObserver((entries) => {
@@ -603,14 +615,51 @@
       document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
     
-    // Testimonial Carousel (cycles every 4 seconds)
-    const testimonials = document.querySelectorAll('#testimonial-carousel .testimonial');
-    let currentTestimonial = 0;
+    // Testimonial Slider Functionality
+    const slides = document.querySelectorAll('#testimonial-slider .testimonial-slide');
+    const dotsContainer = document.getElementById('testimonial-dots');
+    let currentSlide = 0;
+    
+    // Create dots
+    slides.forEach((slide, index) => {
+      const dot = document.createElement('span');
+      if(index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        goToSlide(index);
+      });
+      dotsContainer.appendChild(dot);
+    });
+    
+    function goToSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      dotsContainer.children[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+      dotsContainer.children[currentSlide].classList.add('active');
+    }
+    
+    // Auto-cycle every 4 seconds
     setInterval(() => {
-      testimonials[currentTestimonial].classList.remove('active');
-      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-      testimonials[currentTestimonial].classList.add('active');
+      let nextSlide = (currentSlide + 1) % slides.length;
+      goToSlide(nextSlide);
     }, 4000);
+    
+    // Touch swipe support for mobile
+    let touchStartX = null;
+    const slider = document.getElementById('testimonial-slider');
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+    });
+    slider.addEventListener('touchend', (e) => {
+      if(touchStartX === null) return;
+      let touchEndX = e.changedTouches[0].clientX;
+      if(touchStartX - touchEndX > 50) {
+        goToSlide((currentSlide + 1) % slides.length);
+      } else if(touchEndX - touchStartX > 50) {
+        goToSlide((currentSlide - 1 + slides.length) % slides.length);
+      }
+      touchStartX = null;
+    });
   </script>
 </body>
 </html>
