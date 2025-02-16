@@ -1,214 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>John Doe - Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personal Portfolio</title>
+  <!-- Animate.css & Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
   <style>
-    /* Reset and Global Styles */
+    /* Reset & Global Styles */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; }
     a { text-decoration: none; color: inherit; }
-    
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
     /* Navigation */
     nav {
-      width: 100%;
-      background: #333;
-      color: #fff;
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0; width: 100%;
+      background: #222;
+      color: #fff;
       z-index: 1000;
+      padding: 10px 0;
     }
     nav .container {
+      width: 90%;
       max-width: 1200px;
-      margin: 0 auto;
-      padding: 10px 20px;
+      margin: auto;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
     }
-    nav .logo { font-size: 1.5em; }
-    nav ul { list-style: none; display: flex; }
+    nav .logo { font-size: 1.8em; font-weight: bold; }
+    nav ul { display: flex; }
     nav ul li { margin-left: 20px; }
     nav ul li a { padding: 8px 12px; transition: background 0.3s; }
-    nav ul li a:hover { background: #555; border-radius: 4px; }
-    
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      background: url('https://via.placeholder.com/1200x800') center center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      text-align: center;
-      padding: 0 20px;
-    }
-    .hero h1 { font-size: 3em; margin-bottom: 20px; }
-    .hero p { font-size: 1.2em; margin-bottom: 20px; }
-    .hero button {
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      background: #f39c12;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    
+    nav ul li a:hover { background: #444; border-radius: 4px; }
+
     /* Section Container */
-    section { padding: 80px 20px; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    section { padding: 100px 0 60px; width: 90%; max-width: 1200px; margin: auto; }
     .section-title { text-align: center; margin-bottom: 40px; }
     .section-title h2 { font-size: 2.5em; margin-bottom: 10px; }
     .section-title p { color: #777; }
-    
-    /* About Section */
-    .about { display: flex; flex-wrap: wrap; align-items: center; }
-    .about .about-img { flex: 1 1 300px; padding: 20px; }
-    .about .about-img img { width: 100%; border-radius: 8px; }
-    .about .about-content { flex: 2 1 400px; padding: 20px; }
-    .about .about-content h3 { font-size: 2em; margin-bottom: 10px; }
-    .about .about-content p { color: #555; margin-bottom: 10px; }
-    
-    /* Skills Section */
-    .skills { display: flex; flex-wrap: wrap; justify-content: space-between; }
-    .skill { flex: 1 1 200px; margin: 10px; }
-    .skill h4 { margin-bottom: 10px; }
-    .progress { background: #eee; border-radius: 4px; overflow: hidden; }
-    .progress div {
-      height: 20px;
-      background: #f39c12;
-      line-height: 20px;
-      color: #fff;
-      text-align: right;
-      padding-right: 5px;
-      transition: width 1s ease;
+
+    /* Utility for animation (hidden initially) */
+    .hidden {
+      opacity: 0;
+      transform: translateY(30px);
     }
-    
-    /* Services Section */
-    .services { display: flex; flex-wrap: wrap; justify-content: space-around; }
-    .service {
-      flex: 1 1 300px;
-      background: #f9f9f9;
-      margin: 10px;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    /* About Me */
+    #about {
       text-align: center;
+      padding-top: 140px; /* extra space for fixed nav */
     }
-    .service img { width: 80px; height: 80px; }
-    .service h4 { margin: 10px 0; }
-    .service p { color: #777; }
-    
-    /* Resume Section */
-    .resume { display: flex; flex-wrap: wrap; }
-    .timeline { flex: 1 1 500px; padding: 20px; }
-    .timeline-item { margin-bottom: 20px; }
-    .timeline-item h4 { margin-bottom: 5px; }
-    .timeline-item span { font-size: 0.9em; color: #999; }
-    .timeline-item p { margin-top: 5px; }
-    
-    /* Projects Section */
-    .projects { text-align: center; }
-    .projects .filter { margin-bottom: 20px; }
-    .filter button {
-      padding: 10px 20px;
-      margin: 0 5px;
-      border: none;
-      background: #ddd;
-      cursor: pointer;
-      border-radius: 4px;
+    #about h1 { font-size: 3em; margin-bottom: 20px; }
+    #about p { font-size: 1.1em; max-width: 800px; margin: 0 auto 20px; }
+    #about .social-links a {
+      font-size: 1.5em; margin: 0 10px; color: #555; transition: color 0.3s;
     }
-    .filter button.active, .filter button:hover {
-      background: #f39c12;
-      color: #fff;
+    #about .social-links a:hover { color: #f39c12; }
+
+    /* Services */
+    #services .service-cards {
+      display: flex; flex-wrap: wrap; justify-content: center;
     }
-    .project-grid {
+    #services .service {
+      background: #f7f7f7;
+      padding: 20px;
+      margin: 10px;
+      width: calc(33.333% - 20px);
+      min-width: 250px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    #services .service:hover { transform: translateY(-5px); }
+    #services .service i { font-size: 2.5em; margin-bottom: 15px; color: #f39c12; }
+    #services .service h4 { margin-bottom: 10px; }
+    #services .service p { color: #555; }
+
+    /* Projects */
+    #projects .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    #projects .project {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    #projects .project:hover { transform: scale(1.02); }
+    #projects .project img { height: 150px; object-fit: cover; }
+    #projects .project .content {
+      padding: 15px;
+    }
+    #projects .project .content h4 { margin-bottom: 8px; }
+    #projects .project .content p { font-size: 0.9em; color: #666; }
+
+    /* Testimonials */
+    #testimonials {
+      background: #f7f7f7;
+      padding: 60px 0;
+    }
+    #testimonials .testimonial-cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
       justify-content: center;
     }
-    .project-item {
-      width: calc(33.333% - 10px);
-      margin-bottom: 20px;
-    }
-    .project-item img { width: 100%; border-radius: 8px; }
-    
-    /* Clients Section */
-    .clients { background: #f9f9f9; padding: 40px 20px; }
-    .client { margin: 20px; text-align: center; }
-    .client img { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; }
-    .client p { font-style: italic; color: #555; margin-bottom: 5px; }
-    .client h5 { font-size: 1em; color: #333; }
-    
-    /* Pricing Section */
-    .pricing { display: flex; flex-wrap: wrap; justify-content: center; }
-    .price-card {
+    #testimonials .testimonial {
       background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 10px;
       padding: 20px;
-      flex: 1 1 250px;
+      margin: 10px;
+      width: calc(33.333% - 20px);
+      min-width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
     }
-    .price-card h3 { margin: 0; }
-    .price-card h2 { margin: 10px 0; color: #f39c12; }
-    .price-card ul { list-style: none; padding: 0; margin: 10px 0; }
-    .price-card ul li {
-      padding: 10px 0;
-      border-top: 1px solid #eee;
+    #testimonials .testimonial:hover { transform: translateY(-5px); }
+    #testimonials .testimonial p { font-style: italic; margin-bottom: 10px; }
+    #testimonials .testimonial h5 { font-size: 1.1em; color: #f39c12; }
+
+    /* Blogs */
+    #blogs .blog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
-    .price-card button {
-      margin-top: 15px;
+    #blogs .blog {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    #blogs .blog:hover { transform: scale(1.02); }
+    #blogs .blog img { height: 150px; object-fit: cover; }
+    #blogs .blog .content { padding: 15px; }
+    #blogs .blog .content h4 { margin-bottom: 8px; }
+    #blogs .blog .content p { font-size: 0.9em; color: #666; }
+
+    /* Why Choose Us */
+    #whyus {
+      background: #f7f7f7;
+      text-align: center;
+      padding: 60px 0;
+    }
+    #whyus .reasons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    #whyus .reason {
+      background: #fff;
+      padding: 20px;
+      width: calc(33.333% - 20px);
+      min-width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    #whyus .reason:hover { transform: translateY(-5px); }
+    #whyus .reason i { font-size: 2em; margin-bottom: 10px; color: #f39c12; }
+    #whyus .reason h4 { margin-bottom: 8px; }
+    #whyus .reason p { font-size: 0.9em; color: #666; }
+
+    /* Hire Me */
+    #hireme {
+      text-align: center;
+      padding: 60px 20px;
+      background: url('https://via.placeholder.com/1200x400') no-repeat center/cover;
+      color: #fff;
+      position: relative;
+    }
+    #hireme::before {
+      content: "";
+      position: absolute;
+      top:0; left:0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    #hireme .hireme-content {
+      position: relative;
+      z-index: 1;
+    }
+    #hireme h2 { font-size: 2.5em; margin-bottom: 20px; }
+    #hireme button {
       padding: 10px 20px;
+      font-size: 1.1em;
       border: none;
       background: #f39c12;
       color: #fff;
       border-radius: 4px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    
-    /* Contact Section */
-    .contact-form { max-width: 600px; margin: 0 auto; }
-    .contact-form input, .contact-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+    #hireme button:hover { background: #d97706; }
+
+    /* Contact Us */
+    #contact {
+      padding-bottom: 80px;
+    }
+    #contact form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    #contact form input,
+    #contact form textarea {
+      padding: 12px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      font-size: 1em;
+      width: 100%;
     }
-    .contact-form button {
-      padding: 10px 20px;
+    #contact form button {
+      padding: 12px;
       border: none;
       background: #f39c12;
       color: #fff;
+      font-size: 1.1em;
       border-radius: 4px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    .contact-info { text-align: center; margin-top: 20px; }
-    
+    #contact form button:hover { background: #d97706; }
+    #contact .contact-info {
+      text-align: center;
+      margin-top: 20px;
+      color: #555;
+    }
+
     /* Footer */
     footer {
-      background: #333;
+      background: #222;
       color: #fff;
       text-align: center;
-      padding: 20px;
+      padding: 20px 0;
     }
-    
+
     /* Responsive */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2em; }
-      .project-item { width: calc(50% - 10px); }
+    @media(max-width: 768px) {
+      #services .service, #testimonials .testimonial, #whyus .reason {
+        width: calc(50% - 20px);
+      }
     }
-    @media (max-width: 480px) {
+    @media(max-width: 480px) {
       nav .container { flex-direction: column; }
       nav ul { flex-direction: column; margin-top: 10px; }
-      .project-item { width: 100%; }
+      #services .service, #testimonials .testimonial, #whyus .reason {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -217,294 +270,217 @@
   <!-- Navigation -->
   <nav>
     <div class="container">
-      <div class="logo">John Doe</div>
+      <div class="logo">MyPortfolio</div>
       <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Expertise</a></li>
+        <li><a href="#about">About Me</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#resume">Resume</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#clients">Clients</a></li>
-        <li><a href="#pricing">Price</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#blogs">Blogs</a></li>
+        <li><a href="#whyus">Why Choose Us</a></li>
+        <li><a href="#hireme">Hire Me</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div>
-      <h1>Graphic &amp; Web Designer</h1>
-      <p>Crafting stunning designs and immersive experiences.</p>
-      <button onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">
-        Learn More
-      </button>
+  <!-- About Me -->
+  <section id="about" class="hidden">
+    <div class="section-title">
+      <h2>About Me</h2>
+      <p>Hello! I'm <strong>John Doe</strong>, a passionate developer and designer.</p>
+    </div>
+    <p style="text-align: center; max-width: 800px; margin: auto;">
+      I create engaging, interactive web experiences that deliver value. I specialize in web & mobile development and design.
+    </p>
+    <div class="social-links" style="text-align: center; margin-top: 20px;">
+      <a href="https://www.linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.upwork.com" target="_blank" title="Upwork"><i class="fab fa-upwork"></i></a>
+      <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about">
-    <div class="container about">
-      <div class="about-img">
-        <img src="https://via.placeholder.com/400x400" alt="About Me">
-      </div>
-      <div class="about-content">
-        <h3>About Me</h3>
-        <p>
-          I am a software developer with 4 years of expertise in mobile app development including Flutter, Android, and iOS.
-          I am passionate about creating dynamic user experiences with modern design principles.
-        </p>
-        <p>
-          My experience in freelance and collaborative projects has honed my skills in both design and development.
-        </p>
-      </div>
+  <!-- Services -->
+  <section id="services" class="hidden">
+    <div class="section-title">
+      <h2>Services I Provide</h2>
+      <p>What I can do for you</p>
     </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="skills">
-    <div class="container">
-      <div class="section-title">
-        <h2>Work Expertise</h2>
-        <p>My professional skills</p>
+    <div class="service-cards">
+      <div class="service">
+        <i class="fas fa-code"></i>
+        <h4>Web Development</h4>
+        <p>Building responsive and high-performance websites.</p>
       </div>
-      <div class="skills">
-        <div class="skill">
-          <h4>Flutter</h4>
-          <div class="progress"><div style="width: 90%;">90%</div></div>
-        </div>
-        <div class="skill">
-          <h4>Android</h4>
-          <div class="progress"><div style="width: 85%;">85%</div></div>
-        </div>
-        <div class="skill">
-          <h4>iOS</h4>
-          <div class="progress"><div style="width: 80%;">80%</div></div>
-        </div>
-        <div class="skill">
-          <h4>UI/UX</h4>
-          <div class="progress"><div style="width: 75%;">75%</div></div>
-        </div>
+      <div class="service">
+        <i class="fas fa-mobile-alt"></i>
+        <h4>Mobile App Development</h4>
+        <p>Creating engaging mobile applications for iOS and Android.</p>
+      </div>
+      <div class="service">
+        <i class="fas fa-paint-brush"></i>
+        <h4>UI/UX Design</h4>
+        <p>Designing intuitive interfaces with a focus on user experience.</p>
       </div>
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section id="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Services</h2>
-        <p>What I Offer</p>
+  <!-- Projects -->
+  <section id="projects" class="hidden">
+    <div class="section-title">
+      <h2>Projects</h2>
+      <p>Some of my recent work</p>
+    </div>
+    <div class="project-grid">
+      <div class="project">
+        <img src="https://via.placeholder.com/400x250" alt="Project 1">
+        <div class="content">
+          <h4>Project One</h4>
+          <p>A modern web application built with cutting edge technology.</p>
+        </div>
       </div>
-      <div class="services">
-        <div class="service">
-          <img src="https://via.placeholder.com/80" alt="Web Design">
-          <h4>Web Design</h4>
-          <p>Creating responsive and engaging web designs.</p>
+      <div class="project">
+        <img src="https://via.placeholder.com/400x250" alt="Project 2">
+        <div class="content">
+          <h4>Project Two</h4>
+          <p>A mobile app that offers seamless user experience and robust features.</p>
         </div>
-        <div class="service">
-          <img src="https://via.placeholder.com/80" alt="Mobile Design">
-          <h4>Mobile Design</h4>
-          <p>Designing intuitive interfaces for mobile applications.</p>
-        </div>
-        <div class="service">
-          <img src="https://via.placeholder.com/80" alt="Marketing">
-          <h4>Marketing</h4>
-          <p>Developing strategies that enhance brand presence.</p>
+      </div>
+      <div class="project">
+        <img src="https://via.placeholder.com/400x250" alt="Project 3">
+        <div class="content">
+          <h4>Project Three</h4>
+          <p>An innovative design project that bridges creativity with functionality.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Resume Section -->
-  <section id="resume">
-    <div class="container">
-      <div class="section-title">
-        <h2>Resume</h2>
-        <p>My professional journey</p>
+  <!-- Testimonials -->
+  <section id="testimonials" class="hidden">
+    <div class="section-title">
+      <h2>Testimonials</h2>
+      <p>What my clients say</p>
+    </div>
+    <div class="testimonial-cards">
+      <div class="testimonial">
+        <p>"John delivered an exceptional product on time and on budget."</p>
+        <h5>- Client One</h5>
       </div>
-      <div class="resume">
-        <div class="timeline">
-          <div class="timeline-item">
-            <h4>2014-2015</h4>
-            <span>Project Team Leader &amp; Developer at IT Company, Los Angeles, USA</span>
-            <p>Led projects and developed innovative solutions.</p>
-          </div>
-          <div class="timeline-item">
-            <h4>2015-2016</h4>
-            <span>IT Specialist &amp; Graphic Designer at Digital Studio, Amsterdam, Netherlands</span>
-            <p>Crafted designs and provided technical expertise.</p>
-          </div>
-          <div class="timeline-item">
-            <h4>2017-2018</h4>
-            <span>Junior Web Programmer at Warta Ekonomi, New-Delhi, India</span>
-            <p>Developed front-end solutions and improved user experience.</p>
-          </div>
-          <div class="timeline-item">
-            <h4>2018-2019</h4>
-            <span>Freelance Front-end Developer &amp; Graphic Designer</span>
-            <p>Collaborated with clients to bring their visions to life.</p>
-          </div>
+      <div class="testimonial">
+        <p>"The creativity and professionalism were evident from day one."</p>
+        <h5>- Client Two</h5>
+      </div>
+      <div class="testimonial">
+        <p>"I highly recommend his services for any web or mobile project."</p>
+        <h5>- Client Three</h5>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blogs -->
+  <section id="blogs" class="hidden">
+    <div class="section-title">
+      <h2>Blogs</h2>
+      <p>Latest insights and articles</p>
+    </div>
+    <div class="blog-list">
+      <div class="blog">
+        <img src="https://via.placeholder.com/400x250" alt="Blog 1">
+        <div class="content">
+          <h4>Blog Title One</h4>
+          <p>An insight into modern web development trends.</p>
+        </div>
+      </div>
+      <div class="blog">
+        <img src="https://via.placeholder.com/400x250" alt="Blog 2">
+        <div class="content">
+          <h4>Blog Title Two</h4>
+          <p>Exploring the intersection of design and technology.</p>
+        </div>
+      </div>
+      <div class="blog">
+        <img src="https://via.placeholder.com/400x250" alt="Blog 3">
+        <div class="content">
+          <h4>Blog Title Three</h4>
+          <p>How to build responsive sites that engage users.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects">
-    <div class="container">
-      <div class="section-title">
-        <h2>Projects</h2>
-        <p>Portfolio</p>
+  <!-- Why Choose Us -->
+  <section id="whyus" class="hidden">
+    <div class="section-title">
+      <h2>Why Choose Us</h2>
+      <p>The benefits of working with me</p>
+    </div>
+    <div class="reasons">
+      <div class="reason">
+        <i class="fas fa-award"></i>
+        <h4>Quality Work</h4>
+        <p>Delivering excellence in every project.</p>
       </div>
-      <div class="projects">
-        <div class="filter">
-          <button class="filter-btn active" onclick="filterProjects('all', event)">All</button>
-          <button class="filter-btn" onclick="filterProjects('web', event)">WEB DESIGN</button>
-          <button class="filter-btn" onclick="filterProjects('ui', event)">UI/UX</button>
-          <button class="filter-btn" onclick="filterProjects('graphic', event)">GRAPHIC DESIGN</button>
-        </div>
-        <div class="project-grid">
-          <div class="project-item" data-category="web">
-            <img src="https://via.placeholder.com/350x200" alt="Project 1">
-          </div>
-          <div class="project-item" data-category="ui">
-            <img src="https://via.placeholder.com/350x200" alt="Project 2">
-          </div>
-          <div class="project-item" data-category="graphic">
-            <img src="https://via.placeholder.com/350x200" alt="Project 3">
-          </div>
-          <div class="project-item" data-category="web">
-            <img src="https://via.placeholder.com/350x200" alt="Project 4">
-          </div>
-          <div class="project-item" data-category="ui">
-            <img src="https://via.placeholder.com/350x200" alt="Project 5">
-          </div>
-          <div class="project-item" data-category="graphic">
-            <img src="https://via.placeholder.com/350x200" alt="Project 6">
-          </div>
-        </div>
+      <div class="reason">
+        <i class="fas fa-clock"></i>
+        <h4>Timely Delivery</h4>
+        <p>Always meeting deadlines without compromising quality.</p>
+      </div>
+      <div class="reason">
+        <i class="fas fa-thumbs-up"></i>
+        <h4>Client Satisfaction</h4>
+        <p>Your success is my success – I strive for excellence.</p>
       </div>
     </div>
   </section>
 
-  <!-- Clients Section -->
-  <section id="clients">
-    <div class="container">
-      <div class="section-title">
-        <h2>Clients</h2>
-        <p>What they say</p>
-      </div>
-      <div class="clients">
-        <div class="client">
-          <img src="https://via.placeholder.com/80" alt="Client 1">
-          <p>"Etiam sed ultricies nibh. Suspendisse pulvinar est in eros semper cursus."</p>
-          <h5>John Doe</h5>
-        </div>
-        <div class="client">
-          <img src="https://via.placeholder.com/80" alt="Client 2">
-          <p>"Vestibulum dapibus aliquet euismod. Lorem ipsum dolor sit amet."</p>
-          <h5>Jane Smith</h5>
-        </div>
-        <div class="client">
-          <img src="https://via.placeholder.com/80" alt="Client 3">
-          <p>"In nunc erat, mollis eget ultricies vel, porta eu purus."</p>
-          <h5>Michael Brown</h5>
-        </div>
-      </div>
+  <!-- Hire Me -->
+  <section id="hireme" class="hidden">
+    <div class="hireme-content">
+      <h2>Ready to get started?</h2>
+      <p>Let's work together to create something amazing.</p>
+      <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Hire Me</button>
     </div>
   </section>
 
-  <!-- Pricing Section -->
-  <section id="pricing">
-    <div class="container">
-      <div class="section-title">
-        <h2>Price</h2>
-        <p>My service rates</p>
-      </div>
-      <div class="pricing">
-        <div class="price-card">
-          <h3>Design</h3>
-          <h2>$25/hr</h2>
-          <ul>
-            <li>24/7 Support</li>
-            <li>1000 Gb Storage</li>
-            <li>Development</li>
-            <li>Unlimited Space</li>
-          </ul>
-          <button>Buy</button>
-        </div>
-        <div class="price-card">
-          <h3>App</h3>
-          <h2>$75/hr</h2>
-          <ul>
-            <li>24/7 Support</li>
-            <li>1000 Gb Storage</li>
-            <li>Development</li>
-            <li>Unlimited Space</li>
-          </ul>
-          <button>Buy</button>
-        </div>
-        <div class="price-card">
-          <h3>Website</h3>
-          <h2>$150/hr</h2>
-          <ul>
-            <li>24/7 Support</li>
-            <li>1000 Gb Storage</li>
-            <li>Development</li>
-            <li>Unlimited Space</li>
-          </ul>
-          <button>Buy</button>
-        </div>
-      </div>
+  <!-- Contact Us -->
+  <section id="contact" class="hidden">
+    <div class="section-title">
+      <h2>Contact Us</h2>
+      <p>Get in touch today</p>
     </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <div class="container">
-      <div class="section-title">
-        <h2>Contact</h2>
-        <p>Get in Touch</p>
-      </div>
-      <div class="contact-form">
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Your Email">
-        <textarea placeholder="Your Message" rows="5"></textarea>
-        <button>Send Message</button>
-      </div>
-      <div class="contact-info">
-        <p><strong>Phone:</strong> 700 800 100 200</p>
-        <p><strong>Email:</strong> oscar@mail.com</p>
-        <p><strong>Address:</strong> NY Brooklyn 28</p>
-      </div>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="contact-info">
+      <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+      <p><i class="fas fa-envelope"></i> email@example.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</p>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>Copyright © Monothemes. All rights reserved.</p>
+    <p>&copy; 2025 MyPortfolio. All rights reserved.</p>
   </footer>
 
+  <!-- JavaScript for Animate on Scroll -->
   <script>
-    // Project Filtering Functionality
-    function filterProjects(category, event) {
-      var projects = document.querySelectorAll('.project-item');
-      projects.forEach(function(project) {
-        if (category === 'all' || project.getAttribute('data-category') === category) {
-          project.style.display = 'block';
-        } else {
-          project.style.display = 'none';
+    // Add animation class when element scrolls into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate__animated", "animate__fadeInUp");
+          entry.target.classList.remove("hidden");
+          observer.unobserve(entry.target);
         }
       });
-      // Update active class on filter buttons
-      var buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(function(btn) {
-        btn.classList.remove('active');
-      });
-      event.target.classList.add('active');
-    }
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
