@@ -34,8 +34,7 @@
       transition: background 0.1s;
     }
     
-    /* Glassmorphism effect with extra transparency (Apple‑like) 
-       and animated border hover effect */
+    /* Glassmorphism effect with extra transparency and running border animation */
     .glass {
       position: relative;
       background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05));
@@ -45,18 +44,24 @@
       border-radius: 10px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    .glass:hover::before {
+    .glass:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+    .glass:hover::after {
       content: "";
       position: absolute;
-      top: -2px; left: -2px; right: -2px; bottom: -2px;
-      border: 2px solid #fff;
-      animation: borderPulse 1s infinite;
-      pointer-events: none;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: inherit;
+      /* Running border effect via a moving linear gradient */
+      background: linear-gradient(90deg, transparent, #fff, transparent);
+      background-size: 200% 100%;
+      animation: runningBorder 2s linear infinite;
     }
-    @keyframes borderPulse {
-      0% { border-color: rgba(255,255,255,0.8); }
-      50% { border-color: rgba(255,255,255,0.4); }
-      100% { border-color: rgba(255,255,255,0.8); }
+    @keyframes runningBorder {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
     
     /* Fade in animation for sections */
@@ -144,10 +149,6 @@
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #services .service:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-    }
     #services .service i {
       font-size: 2.8em;
       margin-bottom: 15px;
@@ -178,10 +179,6 @@
       background-size: cover;
       background-position: center;
     }
-    #projects .project:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-    }
     #projects .project .overlay {
       position: absolute;
       bottom: 0;
@@ -200,7 +197,7 @@
       color: #ccc;
     }
     
-    /* Testimonials Section - Auto Cycling Single Item with Dots */
+    /* Testimonials Section - Single Item Auto–Cycle with Swipe and Dots */
     #testimonials {
       padding: 80px 0;
     }
@@ -278,10 +275,6 @@
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #blogs .blog:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-    }
     #blogs .blog img {
       height: 180px;
       object-fit: cover;
@@ -323,10 +316,6 @@
       border-radius: 10px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #whyus .reason:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-    }
     #whyus .reason i {
       font-size: 2.2em;
       margin-bottom: 15px;
@@ -361,8 +350,8 @@
       color: #ccc;
     }
     #hireme button {
-      padding: 20px 40px;
-      font-size: 1.3em;
+      padding: 25px 50px;
+      font-size: 1.5em;
       border: none;
       background: linear-gradient(45deg, #fff, #cceeff);
       color: #000;
@@ -619,7 +608,7 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Background Pointer Reaction and Testimonial Auto Cycle -->
+  <!-- JavaScript for Background Pointer Reaction and Testimonial Auto Cycle with Swipe -->
   <script>
     // Update background gradient based on mouse position
     document.addEventListener("mousemove", (e) => {
@@ -627,7 +616,7 @@
       document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
     
-    // Testimonial Auto Cycle with Dot Indicators
+    // Testimonial Auto Cycle with Dot Indicators and Swipe Support
     const sliderItems = document.querySelectorAll('.testimonial-item');
     const dotsContainer = document.getElementById('testimonial-dots');
     let currentTestimonial = 0;
@@ -657,6 +646,23 @@
       let next = (currentTestimonial + 1) % numTestimonials;
       showTestimonial(next);
     }, 4000);
+    
+    // Swipe support for mobile
+    let touchStartX = null;
+    const testimonialSlider = document.getElementById('testimonial-slider');
+    testimonialSlider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+    });
+    testimonialSlider.addEventListener('touchend', (e) => {
+      if(touchStartX === null) return;
+      let touchEndX = e.changedTouches[0].clientX;
+      if(touchStartX - touchEndX > 50) {
+        showTestimonial((currentTestimonial + 1) % numTestimonials);
+      } else if(touchEndX - touchStartX > 50) {
+        showTestimonial((currentTestimonial - 1 + numTestimonials) % numTestimonials);
+      }
+      touchStartX = null;
+    });
   </script>
 </body>
 </html>
