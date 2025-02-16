@@ -29,19 +29,34 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      /* Use a subtle light‑blue radial gradient */
       background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,170,255,0.2), transparent 40%);
       z-index: -1;
       transition: background 0.1s;
     }
     
-    /* Glassmorphism effect with extra transparency (Apple‑like) */
+    /* Glassmorphism effect with extra transparency (Apple‑like) 
+       and animated border hover effect */
     .glass {
+      position: relative;
       background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05));
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .glass:hover::before {
+      content: "";
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      border: 2px solid #fff;
+      animation: borderPulse 1s infinite;
+      pointer-events: none;
+    }
+    @keyframes borderPulse {
+      0% { border-color: rgba(255,255,255,0.8); }
+      50% { border-color: rgba(255,255,255,0.4); }
+      100% { border-color: rgba(255,255,255,0.8); }
     }
     
     /* Fade in animation for sections */
@@ -67,7 +82,6 @@
     .section-title h2 {
       font-size: 2.8em;
       margin-bottom: 10px;
-      /* White gradient text effect */
       background: linear-gradient(45deg, #fff, #cceeff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -77,7 +91,7 @@
       color: #aaa;
     }
     
-    /* About Section - Big Name & Extended Description */
+    /* About Section */
     #about {
       text-align: center;
     }
@@ -149,7 +163,7 @@
       font-size: 0.95em;
     }
     
-    /* Projects Section - Larger Items */
+    /* Projects Section */
     #projects .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -186,25 +200,31 @@
       color: #ccc;
     }
     
-    /* Testimonials - Horizontal Swipeable List */
+    /* Testimonials Section - Auto Cycling Single Item with Dots */
     #testimonials {
       padding: 80px 0;
     }
-    .testimonial-slider {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 10px;
+    #testimonial-slider {
+      position: relative;
+      max-width: 600px;
+      margin: auto;
+      overflow: hidden;
     }
     .testimonial-item {
-      flex: none;
-      scroll-snap-align: center;
-      background: none;
-      display: flex;
+      display: none;
       align-items: center;
-      min-width: 300px;
+      padding: 20px;
+      transition: opacity 0.5s ease;
+      opacity: 0;
+    }
+    .testimonial-item.active {
+      display: flex;
+      opacity: 1;
+    }
+    .testimonial-item i.quote {
+      font-size: 1.5em;
+      color: #fff;
+      margin-right: 10px;
     }
     .testimonial-item img {
       width: 40px;
@@ -215,8 +235,7 @@
       border: 1px solid rgba(255,255,255,0.3);
     }
     .testimonial-item .testimonial-content {
-      display: flex;
-      flex-direction: column;
+      flex: 1;
     }
     .testimonial-item .testimonial-content p {
       font-style: italic;
@@ -229,11 +248,6 @@
       color: #fff;
       margin: 0;
       font-weight: 600;
-    }
-    .testimonial-item i.quote {
-      font-size: 1.5em;
-      color: #fff;
-      margin-right: 10px;
     }
     .testimonial-dots {
       text-align: center;
@@ -347,8 +361,8 @@
       color: #ccc;
     }
     #hireme button {
-      padding: 15px 30px;
-      font-size: 1.1em;
+      padding: 20px 40px;
+      font-size: 1.3em;
       border: none;
       background: linear-gradient(45deg, #fff, #cceeff);
       color: #000;
@@ -403,10 +417,6 @@
       padding: 20px;
       color: #777;
     }
-    
-    /* Hide scrollbar for testimonial slider */
-    .testimonial-slider::-webkit-scrollbar { display: none; }
-    .testimonial-slider { -ms-overflow-style: none; scrollbar-width: none; }
     
     /* Responsive */
     @media(max-width: 768px) {
@@ -487,14 +497,14 @@
     </div>
   </section>
 
-  <!-- Testimonials Section - Horizontal Swipeable List -->
+  <!-- Testimonials Section -->
   <section id="testimonials" class="fade-in">
     <div class="section-title">
       <h2>Testimonials</h2>
       <p>What my clients say</p>
     </div>
-    <div class="testimonial-slider" id="testimonial-slider">
-      <div class="testimonial-item">
+    <div id="testimonial-slider">
+      <div class="testimonial-item active">
         <i class="fas fa-quote-left quote"></i>
         <img src="https://via.placeholder.com/40" alt="Client 1">
         <div class="testimonial-content">
@@ -609,37 +619,44 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Background Pointer Reaction and Testimonial Dot Updates -->
+  <!-- JavaScript for Background Pointer Reaction and Testimonial Auto Cycle -->
   <script>
     // Update background gradient based on mouse position
     document.addEventListener("mousemove", (e) => {
       document.body.style.setProperty('--mouse-x', e.clientX + 'px');
       document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
-
-    // Testimonial Dot Indicators for swipeable horizontal list
-    const slider = document.getElementById('testimonial-slider');
+    
+    // Testimonial Auto Cycle with Dot Indicators
+    const sliderItems = document.querySelectorAll('.testimonial-item');
     const dotsContainer = document.getElementById('testimonial-dots');
-    const items = document.querySelectorAll('.testimonial-item');
-    const numItems = items.length;
-
+    let currentTestimonial = 0;
+    const numTestimonials = sliderItems.length;
+    
     // Create dots
-    for(let i = 0; i < numItems; i++){
+    sliderItems.forEach((item, index) => {
       const dot = document.createElement('span');
-      if(i === 0) dot.classList.add('active');
-      dot.dataset.index = i;
+      if(index === 0) dot.classList.add('active');
+      dot.dataset.index = index;
       dot.addEventListener('click', () => {
-        slider.scrollTo({ left: i * (items[0].offsetWidth + 20), behavior: 'smooth' });
+        showTestimonial(index);
       });
       dotsContainer.appendChild(dot);
-    }
-
-    slider.addEventListener('scroll', () => {
-      const index = Math.round(slider.scrollLeft / (items[0].offsetWidth + 20));
-      const dots = dotsContainer.querySelectorAll('span');
-      dots.forEach(dot => dot.classList.remove('active'));
-      if(dots[index]) dots[index].classList.add('active');
     });
+    
+    function showTestimonial(index) {
+      sliderItems[currentTestimonial].classList.remove('active');
+      dotsContainer.children[currentTestimonial].classList.remove('active');
+      currentTestimonial = index;
+      sliderItems[currentTestimonial].classList.add('active');
+      dotsContainer.children[currentTestimonial].classList.add('active');
+    }
+    
+    // Auto cycle every 4 seconds
+    setInterval(() => {
+      let next = (currentTestimonial + 1) % numTestimonials;
+      showTestimonial(next);
+    }, 4000);
   </script>
 </body>
 </html>
