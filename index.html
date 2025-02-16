@@ -34,7 +34,7 @@
       transition: background 0.1s;
     }
     
-    /* Glassmorphism effect with extra transparency and running border animation on hover */
+    /* Glassmorphism effect with extra transparency and simple white border on hover */
     .glass {
       position: relative;
       background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05));
@@ -42,31 +42,13 @@
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
       overflow: hidden;
     }
-    /* Running line border animation */
-    .glass::after {
-      content: "";
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      border: 2px solid transparent;
-      border-radius: inherit;
-      background: linear-gradient(90deg, transparent, #fff, transparent);
-      background-size: 300% 100%;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .glass:hover::after {
-      opacity: 1;
-      animation: runBorder 2s linear infinite;
-    }
-    @keyframes runBorder {
-      0% { background-position: 300% 0; }
-      100% { background-position: -300% 0; }
+    .glass:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+      border-color: #fff;
     }
     
     /* Fade in animation for sections */
@@ -206,7 +188,7 @@
       color: #ccc;
     }
     
-    /* Testimonials Section - Single Item Auto Cycle, Swipe & Synced Dots */
+    /* Testimonials Section - Single Item Auto Cycle with Swipe & Synced Dots */
     #testimonials {
       padding: 80px 0;
     }
@@ -526,6 +508,22 @@
           <h5>Client Three</h5>
         </div>
       </div>
+      <div class="testimonial-item">
+        <i class="fas fa-quote-left quote"></i>
+        <img src="https://via.placeholder.com/40" alt="Client 4">
+        <div class="testimonial-content">
+          <p>"A truly innovative and dedicated professional."</p>
+          <h5>Client Four</h5>
+        </div>
+      </div>
+      <div class="testimonial-item">
+        <i class="fas fa-quote-left quote"></i>
+        <img src="https://via.placeholder.com/40" alt="Client 5">
+        <div class="testimonial-content">
+          <p>"The quality and speed of work exceeded my expectations."</p>
+          <h5>Client Five</h5>
+        </div>
+      </div>
     </div>
     <div class="testimonial-dots" id="testimonial-dots"></div>
   </section>
@@ -606,9 +604,9 @@
       <button type="submit">Send Message</button>
     </form>
     <div class="contact-info">
-      <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-      <p><i class="fas fa-envelope"></i> email@example.com</p>
-      <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</p>
+      <p><i class="fas fa-phone"></i> 9016206523</p>
+      <p><i class="fas fa-envelope"></i> pratikkargathra.work@gmail.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> Surat Gujrat India</p>
     </div>
   </section>
 
