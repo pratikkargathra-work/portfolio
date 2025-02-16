@@ -6,10 +6,9 @@
   <title>Pratik Kargathra - Portfolio</title>
   <!-- Google Font: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Animate.css and Font Awesome for icons -->
+  <!-- Animate.css and Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-
   <style>
     /* Global Reset & Font */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,54 +22,34 @@
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     
-    /* Gradient reaction to mouse pointer */
+    /* Background gradient reaction to mouse pointer */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,204,255,0.15), transparent 40%);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,170,255,0.2), transparent 40%);
       z-index: -1;
       transition: background 0.1s;
     }
     
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      background: linear-gradient(90deg, #000, #111);
-      z-index: 1000;
-      padding: 15px 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    }
-    nav .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav .logo {
-      font-size: 1.8em;
-      font-weight: 600;
-      color: #00ccff;
-    }
-    nav ul { display: flex; }
-    nav ul li { margin-left: 20px; }
-    nav ul li a {
-      padding: 8px 15px;
-      border-radius: 4px;
-      transition: background 0.3s, transform 0.3s;
-    }
-    nav ul li a:hover {
-      background: rgba(0,204,255,0.2);
-      transform: scale(1.05);
+    /* Glassmorphism effect for cards and containers */
+    .glass {
+      background: linear-gradient(135deg, rgba(0,170,255,0.15), rgba(0,204,255,0.15));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
     }
     
     /* Section Container */
-    section { padding: 140px 0 80px; width: 90%; max-width: 1200px; margin: auto; }
+    section {
+      padding: 140px 0 80px;
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
     .section-title {
       text-align: center;
       margin-bottom: 50px;
@@ -78,11 +57,14 @@
     .section-title h2 {
       font-size: 2.8em;
       margin-bottom: 10px;
-      background: linear-gradient(45deg, #00ccff, #00aaff);
+      background: linear-gradient(45deg, #00aaff, #00ccff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .section-title p { font-size: 1em; color: #aaa; }
+    .section-title p {
+      font-size: 1em;
+      color: #aaa;
+    }
     
     /* Utility for Animation */
     .hidden {
@@ -114,18 +96,25 @@
       font-size: 1.8em;
       margin: 0 12px;
       color: #fff;
-      border: 2px solid #00ccff;
-      padding: 10px;
+      border: 1px solid #00ccff;
+      padding: 8px;
       border-radius: 50%;
       transition: background 0.3s, transform 0.3s;
     }
-    #about .social-links a:hover {
-      background: #00ccff;
-      transform: rotate(10deg) scale(1.1);
+    /* Brand hover colors */
+    #about .social-links a[href*="linkedin"]:hover {
+      background: #0077b5;
+      color: #fff;
+    }
+    #about .social-links a[href*="upwork"]:hover {
+      background: #6fda44;
       color: #000;
     }
-    
-    /* Services */
+    #about .social-links a[href*="instagram"]:hover {
+      background: #e1306c;
+      color: #fff;
+    }
+    /* Services Cards */
     #services .service-cards {
       display: flex;
       flex-wrap: wrap;
@@ -133,16 +122,18 @@
       gap: 20px;
     }
     #services .service {
-      background: #111;
       padding: 30px 20px;
       flex: 1 1 280px;
-      border-radius: 10px;
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #services .service:hover { 
+    #services .service:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6); 
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+    /* Apply glass effect */
+    #services .service.glass {
+      /* Using our glass class */
     }
     #services .service i {
       font-size: 2.8em;
@@ -173,9 +164,9 @@
       background-size: cover;
       background-position: center;
     }
-    #projects .project:hover { 
+    #projects .project:hover {
       transform: scale(1.02);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6); 
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
     }
     #projects .project .overlay {
       position: absolute;
@@ -195,47 +186,54 @@
       color: #ccc;
     }
     
-    /* Testimonials - Compact Profile Image to the Side */
-    #testimonials .testimonial-cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+    /* Testimonials - Carousel */
+    #testimonials {
+      position: relative;
+      min-height: 150px;
     }
-    #testimonials .testimonial {
-      background: #111;
-      padding: 20px 25px;
-      flex: 1 1 400px;
-      border-radius: 10px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
+    #testimonial-carousel {
+      max-width: 600px;
+      margin: auto;
+      position: relative;
+    }
+    #testimonial-carousel .testimonial {
+      display: none;
       align-items: center;
+      padding: 20px;
+      border-radius: 10px;
+      transition: opacity 0.5s;
     }
-    #testimonials .testimonial:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    #testimonial-carousel .testimonial.active {
+      display: flex;
     }
-    #testimonials .testimonial img {
+    #testimonial-carousel .testimonial img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
       object-fit: cover;
       margin-right: 15px;
-      border: 2px solid #00ccff;
+      border: 1px solid rgba(255,255,255,0.3);
     }
-    #testimonials .testimonial .testimonial-content {
+    #testimonial-carousel .testimonial .testimonial-content {
       flex: 1;
     }
-    #testimonials .testimonial p {
+    #testimonial-carousel .testimonial p {
       font-style: italic;
-      margin-bottom: 5px;
+      margin: 0 0 5px 0;
       color: #ccc;
       font-size: 0.95em;
     }
-    #testimonials .testimonial h5 {
+    #testimonial-carousel .testimonial h5 {
       font-size: 1.1em;
       color: #00ccff;
       margin: 0;
+      font-weight: 600;
+    }
+    /* Quote Icon */
+    #testimonial-carousel .testimonial .quote {
+      font-size: 2em;
+      color: #00ccff;
+      margin-right: 10px;
     }
     
     /* Blogs */
@@ -245,13 +243,12 @@
       gap: 25px;
     }
     #blogs .blog {
-      background: #111;
       border-radius: 10px;
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #blogs .blog:hover { 
-      transform: scale(1.02); 
+    #blogs .blog:hover {
+      transform: scale(1.02);
       box-shadow: 0 8px 16px rgba(0,0,0,0.6);
     }
     #blogs .blog img {
@@ -259,8 +256,8 @@
       object-fit: cover;
       transition: transform 0.3s;
     }
-    #blogs .blog:hover img { 
-      transform: scale(1.1); 
+    #blogs .blog:hover img {
+      transform: scale(1.1);
     }
     #blogs .blog .content {
       padding: 20px;
@@ -275,9 +272,8 @@
       color: #ccc;
     }
     
-    /* Why Choose Us */
+    /* Why Choose Me */
     #whyus {
-      background: #111;
       text-align: center;
       padding: 60px 20px;
       border-radius: 10px;
@@ -291,7 +287,6 @@
       margin-top: 30px;
     }
     #whyus .reason {
-      background: #000;
       padding: 30px;
       flex: 1 1 280px;
       border-radius: 10px;
@@ -319,7 +314,6 @@
     #hireme {
       text-align: center;
       padding: 80px 20px;
-      background: linear-gradient(135deg, #000, #111);
       border-radius: 10px;
       position: relative;
       overflow: hidden;
@@ -338,7 +332,7 @@
       padding: 15px 30px;
       font-size: 1.1em;
       border: none;
-      background: linear-gradient(45deg, #00ccff, #0099cc);
+      background: linear-gradient(45deg, #00ccff, #00aaff);
       color: #000;
       border-radius: 50px;
       cursor: pointer;
@@ -346,7 +340,7 @@
     }
     #hireme button:hover { transform: scale(1.05); }
     
-    /* Contact Us */
+    /* Contact Section */
     #contact form {
       max-width: 600px;
       margin: auto;
@@ -357,16 +351,16 @@
     #contact form input,
     #contact form textarea {
       padding: 15px;
-      border: 1px solid #333;
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 6px;
-      background: #111;
+      background: rgba(0,0,0,0.5);
       color: #fff;
       font-size: 1em;
     }
     #contact form button {
       padding: 15px;
       border: none;
-      background: linear-gradient(45deg, #00ccff, #0099cc);
+      background: linear-gradient(45deg, #00ccff, #00aaff);
       color: #000;
       font-size: 1.1em;
       border-radius: 50px;
@@ -387,7 +381,6 @@
     
     /* Footer */
     footer {
-      background: #000;
       text-align: center;
       padding: 20px;
       color: #777;
@@ -395,34 +388,14 @@
     
     /* Responsive */
     @media(max-width: 768px) {
-      #services .service, #whyus .reason, #testimonials .testimonial { flex: 1 1 45%; }
+      #services .service, #whyus .reason { flex: 1 1 45%; }
     }
     @media(max-width: 480px) {
-      nav .container { flex-direction: column; }
-      nav ul { flex-direction: column; margin-top: 10px; }
-      #services .service, #whyus .reason, #testimonials .testimonial { flex: 1 1 100%; }
+      #services .service, #whyus .reason { flex: 1 1 100%; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Navigation -->
-  <nav>
-    <div class="container">
-      <div class="logo">Pratik Kargathra</div>
-      <ul>
-        <li><a href="#about">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#blogs">Blogs</a></li>
-        <li><a href="#whyus">Why Choose</a></li>
-        <li><a href="#hireme">Hire Me</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <!-- About Section -->
   <section id="about" class="hidden">
     <h1>Pratik Kargathra</h1>
@@ -443,17 +416,17 @@
       <p>What I can do for you</p>
     </div>
     <div class="service-cards">
-      <div class="service">
+      <div class="service glass">
         <i class="fas fa-code"></i>
         <h4>Web Development</h4>
         <p>Crafting responsive websites with modern technologies.</p>
       </div>
-      <div class="service">
+      <div class="service glass">
         <i class="fas fa-mobile-alt"></i>
         <h4>Mobile App Development</h4>
         <p>Developing intuitive mobile applications for iOS and Android.</p>
       </div>
-      <div class="service">
+      <div class="service glass">
         <i class="fas fa-paint-brush"></i>
         <h4>UI/UX Design</h4>
         <p>Designing elegant interfaces with seamless user experience.</p>
@@ -471,7 +444,7 @@
       <div class="project" style="background-image: url('https://via.placeholder.com/600x400');">
         <div class="overlay">
           <h4>Project One</h4>
-          <p>A modern web application built with cutting edge technology.</p>
+          <p>A modern web application built with cutting-edge technology.</p>
         </div>
       </div>
       <div class="project" style="background-image: url('https://via.placeholder.com/600x400');">
@@ -489,14 +462,15 @@
     </div>
   </section>
 
-  <!-- Testimonials Section -->
+  <!-- Testimonials Section (Carousel) -->
   <section id="testimonials" class="hidden">
     <div class="section-title">
       <h2>Testimonials</h2>
       <p>What my clients say</p>
     </div>
-    <div class="testimonial-cards">
-      <div class="testimonial">
+    <div id="testimonial-carousel" class="glass">
+      <div class="testimonial active">
+        <i class="fas fa-quote-left quote"></i>
         <img src="https://via.placeholder.com/40" alt="Client 1">
         <div class="testimonial-content">
           <p>"Pratik delivered an outstanding product on schedule with amazing quality."</p>
@@ -504,6 +478,7 @@
         </div>
       </div>
       <div class="testimonial">
+        <i class="fas fa-quote-left quote"></i>
         <img src="https://via.placeholder.com/40" alt="Client 2">
         <div class="testimonial-content">
           <p>"His creative approach and technical skills made our project a huge success."</p>
@@ -511,6 +486,7 @@
         </div>
       </div>
       <div class="testimonial">
+        <i class="fas fa-quote-left quote"></i>
         <img src="https://via.placeholder.com/40" alt="Client 3">
         <div class="testimonial-content">
           <p>"I highly recommend Pratik for any web or mobile development needs."</p>
@@ -527,21 +503,21 @@
       <p>Latest insights and articles</p>
     </div>
     <div class="blog-list">
-      <div class="blog">
+      <div class="blog glass">
         <img src="https://via.placeholder.com/600x400" alt="Blog 1">
         <div class="content">
           <h4>Blog Title One</h4>
           <p>An insight into modern web development trends.</p>
         </div>
       </div>
-      <div class="blog">
+      <div class="blog glass">
         <img src="https://via.placeholder.com/600x400" alt="Blog 2">
         <div class="content">
           <h4>Blog Title Two</h4>
           <p>Exploring the intersection of design and technology.</p>
         </div>
       </div>
-      <div class="blog">
+      <div class="blog glass">
         <img src="https://via.placeholder.com/600x400" alt="Blog 3">
         <div class="content">
           <h4>Blog Title Three</h4>
@@ -551,24 +527,24 @@
     </div>
   </section>
 
-  <!-- Why Choose Us Section -->
+  <!-- Why Choose Me Section -->
   <section id="whyus" class="hidden">
     <div class="section-title">
       <h2>Why Choose Me</h2>
       <p>The benefits of working with me</p>
     </div>
     <div class="reasons">
-      <div class="reason">
+      <div class="reason glass">
         <i class="fas fa-award"></i>
         <h4>Quality Work</h4>
         <p>Delivering excellence in every project.</p>
       </div>
-      <div class="reason">
+      <div class="reason glass">
         <i class="fas fa-clock"></i>
         <h4>Timely Delivery</h4>
         <p>Always meeting deadlines with precision.</p>
       </div>
-      <div class="reason">
+      <div class="reason glass">
         <i class="fas fa-thumbs-up"></i>
         <h4>Client Satisfaction</h4>
         <p>Your success is my success – I go above and beyond.</p>
@@ -607,7 +583,7 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Scroll Animations and Gradient Pointer Reaction -->
+  <!-- JavaScript for Scroll Animations and Background Gradient Reaction & Testimonial Carousel -->
   <script>
     // Animate sections when they come into view
     const observer = new IntersectionObserver((entries) => {
@@ -621,11 +597,20 @@
     }, { threshold: 0.2 });
     document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
 
-    // Update gradient reaction based on mouse position
+    // Update background gradient based on mouse position
     document.addEventListener("mousemove", (e) => {
       document.body.style.setProperty('--mouse-x', e.clientX + 'px');
       document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
+    
+    // Testimonial Carousel (cycles every 4 seconds)
+    const testimonials = document.querySelectorAll('#testimonial-carousel .testimonial');
+    let currentTestimonial = 0;
+    setInterval(() => {
+      testimonials[currentTestimonial].classList.remove('active');
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      testimonials[currentTestimonial].classList.add('active');
+    }, 4000);
   </script>
 </body>
 </html>
