@@ -13,30 +13,33 @@
   <style>
     /* Global Reset & Font */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; line-height: 1.6; background: #0d0d0d; color: #e0e0e0; overflow-x: hidden; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     
-    /* Mouse Follower */
-    #mouseFollower {
+    /* Gradient reaction to mouse pointer */
+    body::before {
+      content: "";
       position: fixed;
       top: 0; left: 0;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(243, 156, 18, 0.8);
+      width: 100%; height: 100%;
       pointer-events: none;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-      transition: transform 0.1s ease-out;
-      z-index: 9999;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,204,255,0.15), transparent 40%);
+      z-index: -1;
+      transition: background 0.1s;
     }
-
+    
     /* Navigation */
     nav {
       position: fixed;
       top: 0; left: 0; width: 100%;
-      background: linear-gradient(90deg, #000, #333);
+      background: linear-gradient(90deg, #000, #111);
       z-index: 1000;
       padding: 15px 0;
       box-shadow: 0 2px 8px rgba(0,0,0,0.8);
@@ -52,19 +55,22 @@
     nav .logo {
       font-size: 1.8em;
       font-weight: 600;
-      color: #f39c12;
+      color: #00ccff;
     }
     nav ul { display: flex; }
     nav ul li { margin-left: 20px; }
     nav ul li a {
       padding: 8px 15px;
       border-radius: 4px;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s;
     }
-    nav ul li a:hover { background: rgba(243, 156, 18, 0.2); }
-
+    nav ul li a:hover {
+      background: rgba(0,204,255,0.2);
+      transform: scale(1.05);
+    }
+    
     /* Section Container */
-    section { padding: 120px 0 80px; width: 90%; max-width: 1200px; margin: auto; }
+    section { padding: 140px 0 80px; width: 90%; max-width: 1200px; margin: auto; }
     .section-title {
       text-align: center;
       margin-bottom: 50px;
@@ -72,34 +78,53 @@
     .section-title h2 {
       font-size: 2.8em;
       margin-bottom: 10px;
-      background: linear-gradient(45deg, #f39c12, #d97706);
+      background: linear-gradient(45deg, #00ccff, #00aaff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .section-title p { font-size: 1em; color: #aaa; }
-
+    
     /* Utility for Animation */
     .hidden {
       opacity: 0;
       transform: translateY(30px);
     }
     
-    /* About Me */
-    #about { text-align: center; }
-    #about h1 { font-size: 3.2em; margin-bottom: 20px; color: #f39c12; }
-    #about p { font-size: 1.1em; max-width: 800px; margin: 20px auto; line-height: 1.8; }
+    /* About Section - Big Name & Extended Description */
+    #about {
+      text-align: center;
+    }
+    #about h1 {
+      font-size: 4em;
+      margin-bottom: 20px;
+      color: #00ccff;
+      font-weight: 700;
+    }
+    #about p {
+      font-size: 1.1em;
+      max-width: 900px;
+      margin: 20px auto;
+      line-height: 1.8;
+      color: #ccc;
+    }
     #about .social-links {
-      margin-top: 20px;
+      margin-top: 30px;
     }
     #about .social-links a {
-      font-size: 1.8em; margin: 0 12px; color: #e0e0e0;
-      transition: color 0.3s, transform 0.3s;
+      font-size: 1.8em;
+      margin: 0 12px;
+      color: #fff;
+      border: 2px solid #00ccff;
+      padding: 10px;
+      border-radius: 50%;
+      transition: background 0.3s, transform 0.3s;
     }
     #about .social-links a:hover {
-      color: #f39c12;
-      transform: scale(1.1);
+      background: #00ccff;
+      transform: rotate(10deg) scale(1.1);
+      color: #000;
     }
-
+    
     /* Services */
     #services .service-cards {
       display: flex;
@@ -108,44 +133,69 @@
       gap: 20px;
     }
     #services .service {
-      background: #1a1a1a;
+      background: #111;
       padding: 30px 20px;
       flex: 1 1 280px;
       border-radius: 10px;
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #services .service:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.6); }
-    #services .service i { font-size: 2.8em; margin-bottom: 15px; color: #f39c12; }
-    #services .service h4 { margin-bottom: 12px; font-size: 1.4em; }
-    #services .service p { color: #bbb; font-size: 0.95em; }
-
-    /* Projects */
+    #services .service:hover { 
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6); 
+    }
+    #services .service i {
+      font-size: 2.8em;
+      margin-bottom: 15px;
+      color: #00ccff;
+    }
+    #services .service h4 {
+      margin-bottom: 12px;
+      font-size: 1.4em;
+    }
+    #services .service p {
+      color: #bbb;
+      font-size: 0.95em;
+    }
+    
+    /* Projects - Full Background Image with Overlay Gradient */
     #projects .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 25px;
     }
     #projects .project {
-      background: #1a1a1a;
+      position: relative;
       border-radius: 10px;
       overflow: hidden;
+      height: 250px;
       transition: transform 0.3s, box-shadow 0.3s;
+      background-size: cover;
+      background-position: center;
     }
-    #projects .project:hover { transform: scale(1.02); box-shadow: 0 8px 16px rgba(0,0,0,0.6); }
-    #projects .project img {
-      height: 180px;
-      object-fit: cover;
-      transition: transform 0.3s;
+    #projects .project:hover { 
+      transform: scale(1.02);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6); 
     }
-    #projects .project:hover img { transform: scale(1.1); }
-    #projects .project .content {
+    #projects .project .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
       padding: 20px;
+      background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
     }
-    #projects .project .content h4 { margin-bottom: 10px; font-size: 1.3em; color: #f39c12; }
-    #projects .project .content p { font-size: 0.95em; color: #ccc; }
-
-    /* Testimonials */
+    #projects .project .overlay h4 {
+      font-size: 1.4em;
+      margin-bottom: 8px;
+      color: #00ccff;
+    }
+    #projects .project .overlay p {
+      font-size: 0.95em;
+      color: #ccc;
+    }
+    
+    /* Testimonials - Compact Profile Image to the Side */
     #testimonials .testimonial-cards {
       display: flex;
       flex-wrap: wrap;
@@ -153,50 +203,78 @@
       gap: 20px;
     }
     #testimonials .testimonial {
-      background: #1a1a1a;
-      padding: 30px;
-      flex: 1 1 300px;
+      background: #111;
+      padding: 20px 25px;
+      flex: 1 1 400px;
       border-radius: 10px;
-      text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      align-items: center;
     }
-    #testimonials .testimonial:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.6); }
+    #testimonials .testimonial:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
     #testimonials .testimonial img {
-      width: 80px;
-      height: 80px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
-      margin: 0 auto 15px;
-      border: 3px solid #f39c12;
+      margin-right: 15px;
+      border: 2px solid #00ccff;
     }
-    #testimonials .testimonial p { font-style: italic; margin-bottom: 15px; color: #ccc; }
-    #testimonials .testimonial h5 { font-size: 1.1em; color: #f39c12; }
-
+    #testimonials .testimonial .testimonial-content {
+      flex: 1;
+    }
+    #testimonials .testimonial p {
+      font-style: italic;
+      margin-bottom: 5px;
+      color: #ccc;
+      font-size: 0.95em;
+    }
+    #testimonials .testimonial h5 {
+      font-size: 1.1em;
+      color: #00ccff;
+      margin: 0;
+    }
+    
     /* Blogs */
     #blogs .blog-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 25px;
     }
     #blogs .blog {
-      background: #1a1a1a;
+      background: #111;
       border-radius: 10px;
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #blogs .blog:hover { transform: scale(1.02); box-shadow: 0 8px 16px rgba(0,0,0,0.6); }
+    #blogs .blog:hover { 
+      transform: scale(1.02); 
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
     #blogs .blog img {
       height: 180px;
       object-fit: cover;
       transition: transform 0.3s;
     }
-    #blogs .blog:hover img { transform: scale(1.1); }
+    #blogs .blog:hover img { 
+      transform: scale(1.1); 
+    }
     #blogs .blog .content {
       padding: 20px;
     }
-    #blogs .blog .content h4 { margin-bottom: 10px; font-size: 1.3em; color: #f39c12; }
-    #blogs .blog .content p { font-size: 0.95em; color: #ccc; }
-
+    #blogs .blog .content h4 {
+      margin-bottom: 10px;
+      font-size: 1.3em;
+      color: #00ccff;
+    }
+    #blogs .blog .content p {
+      font-size: 0.95em;
+      color: #ccc;
+    }
+    
     /* Why Choose Us */
     #whyus {
       background: #111;
@@ -213,44 +291,61 @@
       margin-top: 30px;
     }
     #whyus .reason {
-      background: #1a1a1a;
+      background: #000;
       padding: 30px;
       flex: 1 1 280px;
       border-radius: 10px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #whyus .reason:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.6); }
+    #whyus .reason:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
     #whyus .reason i {
       font-size: 2.2em;
       margin-bottom: 15px;
-      color: #f39c12;
+      color: #00ccff;
     }
-    #whyus .reason h4 { margin-bottom: 10px; font-size: 1.3em; }
-    #whyus .reason p { font-size: 0.95em; color: #ccc; }
-
+    #whyus .reason h4 {
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+    #whyus .reason p {
+      font-size: 0.95em;
+      color: #ccc;
+    }
+    
     /* Hire Me */
     #hireme {
       text-align: center;
       padding: 80px 20px;
-      background: linear-gradient(135deg, #000, #333);
+      background: linear-gradient(135deg, #000, #111);
       border-radius: 10px;
       position: relative;
       overflow: hidden;
     }
-    #hireme h2 { font-size: 2.8em; margin-bottom: 20px; color: #f39c12; }
-    #hireme p { font-size: 1.1em; margin-bottom: 30px; color: #ddd; }
+    #hireme h2 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      color: #00ccff;
+    }
+    #hireme p {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
     #hireme button {
       padding: 15px 30px;
       font-size: 1.1em;
       border: none;
-      background: linear-gradient(45deg, #f39c12, #d97706);
-      color: #fff;
+      background: linear-gradient(45deg, #00ccff, #0099cc);
+      color: #000;
       border-radius: 50px;
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
     }
     #hireme button:hover { transform: scale(1.05); }
-
+    
     /* Contact Us */
     #contact form {
       max-width: 600px;
@@ -264,15 +359,15 @@
       padding: 15px;
       border: 1px solid #333;
       border-radius: 6px;
-      background: #1a1a1a;
-      color: #e0e0e0;
+      background: #111;
+      color: #fff;
       font-size: 1em;
     }
     #contact form button {
       padding: 15px;
       border: none;
-      background: linear-gradient(45deg, #f39c12, #d97706);
-      color: #fff;
+      background: linear-gradient(45deg, #00ccff, #0099cc);
+      color: #000;
       font-size: 1.1em;
       border-radius: 50px;
       cursor: pointer;
@@ -285,8 +380,11 @@
       font-size: 1em;
       color: #aaa;
     }
-    #contact .contact-info i { margin-right: 8px; color: #f39c12; }
-
+    #contact .contact-info i {
+      margin-right: 8px;
+      color: #00ccff;
+    }
+    
     /* Footer */
     footer {
       background: #000;
@@ -294,61 +392,51 @@
       padding: 20px;
       color: #777;
     }
-
+    
     /* Responsive */
     @media(max-width: 768px) {
-      #services .service, #testimonials .testimonial, #whyus .reason {
-        flex: 1 1 45%;
-      }
+      #services .service, #whyus .reason, #testimonials .testimonial { flex: 1 1 45%; }
     }
     @media(max-width: 480px) {
       nav .container { flex-direction: column; }
       nav ul { flex-direction: column; margin-top: 10px; }
-      #services .service, #testimonials .testimonial, #whyus .reason {
-        flex: 1 1 100%;
-      }
+      #services .service, #whyus .reason, #testimonials .testimonial { flex: 1 1 100%; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Mouse Follower -->
-  <div id="mouseFollower"></div>
 
   <!-- Navigation -->
   <nav>
     <div class="container">
       <div class="logo">Pratik Kargathra</div>
       <ul>
-        <li><a href="#about">About Me</a></li>
+        <li><a href="#about">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#blogs">Blogs</a></li>
-        <li><a href="#whyus">Why Choose Us</a></li>
+        <li><a href="#whyus">Why Choose</a></li>
         <li><a href="#hireme">Hire Me</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- About Me -->
+  <!-- About Section -->
   <section id="about" class="hidden">
-    <div class="section-title">
-      <h2>About Me</h2>
-      <p>Hello! I'm Pratik Kargathra, a creative developer & designer.</p>
-    </div>
-    <p style="text-align: center; max-width: 800px; margin: auto; line-height: 1.8;">
-      I build interactive, stunning web experiences combining modern design with robust technology. I specialize in both development and creative design.
+    <h1>Pratik Kargathra</h1>
+    <p>
+      I build interactive, stunning web experiences that blend cutting-edge technology with modern design aesthetics. My passion is to create solutions that not only look amazing but work flawlessly.
     </p>
-    <div class="social-links" style="text-align: center; margin-top: 20px;">
+    <div class="social-links">
       <a href="https://www.linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
       <a href="https://www.upwork.com" target="_blank" title="Upwork"><i class="fab fa-upwork"></i></a>
       <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- Services Section -->
   <section id="services" class="hidden">
     <div class="section-title">
       <h2>Services I Provide</h2>
@@ -373,30 +461,27 @@
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- Projects Section -->
   <section id="projects" class="hidden">
     <div class="section-title">
       <h2>Projects</h2>
       <p>Some of my recent work</p>
     </div>
     <div class="project-grid">
-      <div class="project">
-        <img src="https://via.placeholder.com/400x250" alt="Project 1">
-        <div class="content">
+      <div class="project" style="background-image: url('https://via.placeholder.com/600x400');">
+        <div class="overlay">
           <h4>Project One</h4>
           <p>A modern web application built with cutting edge technology.</p>
         </div>
       </div>
-      <div class="project">
-        <img src="https://via.placeholder.com/400x250" alt="Project 2">
-        <div class="content">
+      <div class="project" style="background-image: url('https://via.placeholder.com/600x400');">
+        <div class="overlay">
           <h4>Project Two</h4>
           <p>A mobile app that offers seamless user experience and robust features.</p>
         </div>
       </div>
-      <div class="project">
-        <img src="https://via.placeholder.com/400x250" alt="Project 3">
-        <div class="content">
+      <div class="project" style="background-image: url('https://via.placeholder.com/600x400');">
+        <div class="overlay">
           <h4>Project Three</h4>
           <p>An innovative design project that bridges creativity with functionality.</p>
         </div>
@@ -404,7 +489,7 @@
     </div>
   </section>
 
-  <!-- Testimonials -->
+  <!-- Testimonials Section -->
   <section id="testimonials" class="hidden">
     <div class="section-title">
       <h2>Testimonials</h2>
@@ -412,24 +497,30 @@
     </div>
     <div class="testimonial-cards">
       <div class="testimonial">
-        <img src="https://via.placeholder.com/80" alt="Client 1">
-        <p>"Pratik delivered an outstanding product on schedule with amazing quality."</p>
-        <h5>Client One</h5>
+        <img src="https://via.placeholder.com/40" alt="Client 1">
+        <div class="testimonial-content">
+          <p>"Pratik delivered an outstanding product on schedule with amazing quality."</p>
+          <h5>Client One</h5>
+        </div>
       </div>
       <div class="testimonial">
-        <img src="https://via.placeholder.com/80" alt="Client 2">
-        <p>"His creative approach and technical skills made our project a huge success."</p>
-        <h5>Client Two</h5>
+        <img src="https://via.placeholder.com/40" alt="Client 2">
+        <div class="testimonial-content">
+          <p>"His creative approach and technical skills made our project a huge success."</p>
+          <h5>Client Two</h5>
+        </div>
       </div>
       <div class="testimonial">
-        <img src="https://via.placeholder.com/80" alt="Client 3">
-        <p>"I highly recommend Pratik for any web or mobile development needs."</p>
-        <h5>Client Three</h5>
+        <img src="https://via.placeholder.com/40" alt="Client 3">
+        <div class="testimonial-content">
+          <p>"I highly recommend Pratik for any web or mobile development needs."</p>
+          <h5>Client Three</h5>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Blogs -->
+  <!-- Blogs Section -->
   <section id="blogs" class="hidden">
     <div class="section-title">
       <h2>Blogs</h2>
@@ -437,21 +528,21 @@
     </div>
     <div class="blog-list">
       <div class="blog">
-        <img src="https://via.placeholder.com/400x250" alt="Blog 1">
+        <img src="https://via.placeholder.com/600x400" alt="Blog 1">
         <div class="content">
           <h4>Blog Title One</h4>
           <p>An insight into modern web development trends.</p>
         </div>
       </div>
       <div class="blog">
-        <img src="https://via.placeholder.com/400x250" alt="Blog 2">
+        <img src="https://via.placeholder.com/600x400" alt="Blog 2">
         <div class="content">
           <h4>Blog Title Two</h4>
           <p>Exploring the intersection of design and technology.</p>
         </div>
       </div>
       <div class="blog">
-        <img src="https://via.placeholder.com/400x250" alt="Blog 3">
+        <img src="https://via.placeholder.com/600x400" alt="Blog 3">
         <div class="content">
           <h4>Blog Title Three</h4>
           <p>How to build responsive sites that engage users.</p>
@@ -460,10 +551,10 @@
     </div>
   </section>
 
-  <!-- Why Choose Us -->
+  <!-- Why Choose Us Section -->
   <section id="whyus" class="hidden">
     <div class="section-title">
-      <h2>Why Choose Us</h2>
+      <h2>Why Choose Me</h2>
       <p>The benefits of working with me</p>
     </div>
     <div class="reasons">
@@ -485,17 +576,17 @@
     </div>
   </section>
 
-  <!-- Hire Me -->
+  <!-- Hire Me Section -->
   <section id="hireme" class="hidden">
     <h2>Ready to get started?</h2>
     <p>Let's collaborate and create something amazing.</p>
     <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Hire Me</button>
   </section>
 
-  <!-- Contact Us -->
+  <!-- Contact Section -->
   <section id="contact" class="hidden">
     <div class="section-title">
-      <h2>Contact Us</h2>
+      <h2>Contact</h2>
       <p>Get in touch today</p>
     </div>
     <form>
@@ -516,7 +607,7 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Scroll Animations and Mouse Follow -->
+  <!-- JavaScript for Scroll Animations and Gradient Pointer Reaction -->
   <script>
     // Animate sections when they come into view
     const observer = new IntersectionObserver((entries) => {
@@ -528,13 +619,12 @@
         }
       });
     }, { threshold: 0.2 });
-    
     document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
 
-    // Mouse follower effect
-    const follower = document.getElementById("mouseFollower");
+    // Update gradient reaction based on mouse position
     document.addEventListener("mousemove", (e) => {
-      follower.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+      document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
   </script>
 </body>
