@@ -224,6 +224,11 @@
       object-fit: cover;
       margin-right: 15px;
       border: 1px solid rgba(255,255,255,0.3);
+      /* Fallback to person icon if image fails to load */
+    }
+    .testimonial-item img:invalid, 
+    .testimonial-item img[onerror] {
+      /* We override onerror below, so leave this for future CSS fallback if desired */
     }
     .testimonial-item .testimonial-content p {
       font-style: italic;
@@ -269,8 +274,10 @@
       object-fit: cover;
       transition: transform 0.3s;
     }
-    #blogs .blog:hover img {
-      transform: scale(1.1);
+    /* Remove blog image if it fails to load */
+    #blogs .blog img:onerror { display: none; }
+    #blogs .blog img[onerror] {
+      display: none;
     }
     #blogs .blog .content {
       padding: 20px;
@@ -533,7 +540,7 @@
     <div id="testimonial-slider">
       <div class="testimonial-item active">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Wetime Client">
+        <img src="https://via.placeholder.com/40" alt="Wetime Client" onerror="this.onerror=null; this.src='Assets/placeholder/person.svg';">
         <div class="testimonial-content">
           <p>"The Wetime app revolutionized our internal communications—innovative and reliable."</p>
           <h5>Anil Patel, CEO, Wetime Solutions</h5>
@@ -541,7 +548,7 @@
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Vidsync Client">
+        <img src="https://via.placeholder.com/40" alt="Vidsync Client" onerror="this.onerror=null; this.src='Assets/placeholder/person.svg';">
         <div class="testimonial-content">
           <p>"Vidsync transformed our video streaming experience. Pratik’s expertise made all the difference."</p>
           <h5>Riya Sharma, CTO, Vidsync Media</h5>
@@ -549,7 +556,7 @@
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Stoclytic Client">
+        <img src="https://via.placeholder.com/40" alt="Stoclytic Client" onerror="this.onerror=null; this.src='Assets/placeholder/person.svg';">
         <div class="testimonial-content">
           <p>"Stoclytic delivered deep insights into market trends – truly outstanding analytics."</p>
           <h5>Suresh Gupta, Founder, Stoclytic Analytics</h5>
@@ -567,21 +574,21 @@
     </div>
     <div class="blog-list">
       <div class="blog glass">
-        <img src="https://via.placeholder.com/800x600" alt="Blog 1">
+        <img src="https://via.placeholder.com/800x600" alt="Blog 1" onerror="this.style.display='none';">
         <div class="content">
           <h4>Unlocking the Power of Cybersecurity: The Synergy of AI and Ethical Hacking</h4>
           <p>An exploration of how artificial intelligence and ethical hacking combine to fortify cybersecurity defenses.</p>
         </div>
       </div>
       <div class="blog glass">
-        <img src="https://via.placeholder.com/800x600" alt="Blog 2">
+        <img src="https://via.placeholder.com/800x600" alt="Blog 2" onerror="this.style.display='none';">
         <div class="content">
           <h4>Beyond Imagination: Exploring the Potential of AI and Augmented Reality</h4>
           <p>Dive into the innovative trends that merge artificial intelligence with augmented reality for transformative experiences.</p>
         </div>
       </div>
       <div class="blog glass">
-        <img src="https://via.placeholder.com/800x600" alt="Blog 3">
+        <img src="https://via.placeholder.com/800x600" alt="Blog 3" onerror="this.style.display='none';">
         <div class="content">
           <h4>The Ultimate Guide to Becoming a Top-Quality Developer</h4>
           <p>Discover key skills, best practices, and tips to elevate your development career and produce world-class solutions.</p>
