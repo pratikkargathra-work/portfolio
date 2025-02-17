@@ -35,27 +35,32 @@
       transition: background 0.1s;
     }
     
-    /* Floating Lights Container (absolute so they scroll with content) */
+    /* Floating Lights Container inside About Section */
+    #about {
+      position: relative; /* make About section the positioning context */
+      text-align: center;
+      overflow: hidden;
+    }
     .floating-lights {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      min-height: 100vh;
+      height: 100%;
       pointer-events: none;
-      z-index: -2;
-      overflow: hidden;
+      z-index: 1;
     }
-    /* Each light uses CSS variables for its custom float offset */
+    /* White floating lights with increased number */
     .floating-lights .light {
       position: absolute;
       border-radius: 50%;
       opacity: 0.8;
-      animation: float linear infinite;
-      /* Default size; will be overwritten by JS */
+      animation: float 12s linear infinite;
+      /* Default size; will be randomized by JS */
       width: 80px;
       height: 80px;
-      /* Background will be set inline by JS */
+      /* Background set to white radial gradient */
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
     }
     @keyframes float {
       0% { transform: translate(0, 0); }
@@ -112,15 +117,13 @@
       color: #aaa;
     }
     
-    /* About Section */
-    #about {
-      text-align: center;
-    }
+    /* About Section Content */
     #about h1 {
       font-size: 4em;
       margin-bottom: 20px;
       color: #fff;
       font-weight: 700;
+      position: relative; z-index: 2;
     }
     #about p {
       font-size: 1.1em;
@@ -128,9 +131,11 @@
       margin: 20px auto;
       line-height: 1.8;
       color: #ccc;
+      position: relative; z-index: 2;
     }
     #about .social-links {
       margin-top: 30px;
+      position: relative; z-index: 2;
     }
     #about .social-links a {
       display: inline-flex;
@@ -216,7 +221,7 @@
       color: #ccc;
     }
     
-    /* Testimonials Section - Single Item Auto Cycle, Swipe & Synced Dots */
+    /* Testimonials Section */
     #testimonials {
       padding: 80px 0;
     }
@@ -436,11 +441,9 @@
   </style>
 </head>
 <body>
-  <!-- Floating Lights -->
-  <div class="floating-lights"></div>
-  
-  <!-- About Section -->
+  <!-- About Section with Floating Lights -->
   <section id="about" class="fade-in">
+    <div class="floating-lights"></div>
     <h1>Pratik Kargathra</h1>
     <p>
       I build interactive, stunning web experiences that blend cutting-edge technology with modern design aesthetics. My passion is to create solutions that not only look amazing but work flawlessly.
@@ -646,19 +649,17 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Background Pointer Reaction and Floating Lights & Testimonial Auto Cycle with Swipe Support -->
+  <!-- JavaScript for Background Pointer Reaction, Floating Lights, and Testimonial Slider -->
   <script>
-    // Update background gradient based on mouse position
+    // Update background pointer gradient
     document.addEventListener("mousemove", (e) => {
       document.body.style.setProperty('--mouse-x', e.clientX + 'px');
       document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
     
-    // Generate multiple floating lights with random properties
-    const lightsContainer = document.querySelector('.floating-lights');
-    const colors = ["Crimson", "RoyalBlue", "ForestGreen", "OrangeRed", "MediumPurple", "Teal", "DeepSkyBlue", "Gold"];
-    const lightCount = 20; // Increase number as desired
-
+    // Generate multiple floating lights (white) within the About section
+    const lightsContainer = document.querySelector('#about .floating-lights');
+    const lightCount = 30; // Increase number of lights
     for (let i = 0; i < lightCount; i++) {
       const light = document.createElement('div');
       light.classList.add('light');
@@ -666,7 +667,7 @@
       const size = Math.floor(Math.random() * 40) + 60;
       light.style.width = size + "px";
       light.style.height = size + "px";
-      // Random position across the page (0-100%)
+      // Random position within the About section (0-100%)
       light.style.top = Math.random() * 100 + "%";
       light.style.left = Math.random() * 100 + "%";
       // Random animation duration between 10 and 20 seconds
@@ -680,9 +681,6 @@
       const dy = (Math.random() * 200 - 100) + "px";
       light.style.setProperty("--dx", dx);
       light.style.setProperty("--dy", dy);
-      // Randomly pick a color from the palette for the radial gradient
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      light.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
       lightsContainer.appendChild(light);
     }
     
@@ -692,7 +690,7 @@
     let currentTestimonial = 0;
     const numTestimonials = sliderItems.length;
     
-    // Create dots
+    // Create dot indicators
     sliderItems.forEach((item, index) => {
       const dot = document.createElement('span');
       if(index === 0) dot.classList.add('active');
@@ -717,7 +715,7 @@
       showTestimonial(next);
     }, 4000);
     
-    // Swipe support for mobile
+    // Swipe support for mobile devices
     let touchStartX = null;
     const testimonialSlider = document.getElementById('testimonial-slider');
     testimonialSlider.addEventListener('touchstart', (e) => {
