@@ -46,20 +46,21 @@
       z-index: -2;
       overflow: hidden;
     }
-    /* Increased size for floating gradient elements */
+    /* Each light uses CSS variables for its custom float offset */
     .floating-lights .light {
       position: absolute;
-      background: radial-gradient(circle, rgba(0,170,255,0.6) 0%, transparent 70%);
-      width: 80px;
-      height: 80px;
       border-radius: 50%;
       opacity: 0.8;
-      animation: float 12s infinite ease-in-out;
+      animation: float linear infinite;
+      /* Default size; will be overwritten by JS */
+      width: 80px;
+      height: 80px;
+      /* Background will be set inline by JS */
     }
     @keyframes float {
-      0% { transform: translate(0, 0); opacity: 0.8; }
-      50% { transform: translate(100px, -100px); opacity: 0.4; }
-      100% { transform: translate(0, 0); opacity: 0.8; }
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(var(--dx), var(--dy)); }
+      100% { transform: translate(0, 0); }
     }
     
     /* Glassmorphism effect with simple white border on hover */
@@ -436,13 +437,7 @@
 </head>
 <body>
   <!-- Floating Lights -->
-  <div class="floating-lights">
-    <div class="light" style="top: 10%; left: 20%; animation-duration: 12s; animation-delay: 0s;"></div>
-    <div class="light" style="top: 40%; left: 70%; animation-duration: 15s; animation-delay: 2s;"></div>
-    <div class="light" style="top: 80%; left: 30%; animation-duration: 10s; animation-delay: 4s;"></div>
-    <div class="light" style="top: 20%; left: 80%; animation-duration: 18s; animation-delay: 1s;"></div>
-    <div class="light" style="top: 60%; left: 50%; animation-duration: 14s; animation-delay: 3s;"></div>
-  </div>
+  <div class="floating-lights"></div>
   
   <!-- About Section -->
   <section id="about" class="fade-in">
@@ -651,13 +646,45 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Background Pointer Reaction and Testimonial Auto Cycle with Swipe Support -->
+  <!-- JavaScript for Background Pointer Reaction and Floating Lights & Testimonial Auto Cycle with Swipe Support -->
   <script>
     // Update background gradient based on mouse position
     document.addEventListener("mousemove", (e) => {
       document.body.style.setProperty('--mouse-x', e.clientX + 'px');
       document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
+    
+    // Generate multiple floating lights with random properties
+    const lightsContainer = document.querySelector('.floating-lights');
+    const colors = ["Crimson", "RoyalBlue", "ForestGreen", "OrangeRed", "MediumPurple", "Teal", "DeepSkyBlue", "Gold"];
+    const lightCount = 20; // Increase number as desired
+
+    for (let i = 0; i < lightCount; i++) {
+      const light = document.createElement('div');
+      light.classList.add('light');
+      // Random size between 60 and 100px
+      const size = Math.floor(Math.random() * 40) + 60;
+      light.style.width = size + "px";
+      light.style.height = size + "px";
+      // Random position across the page (0-100%)
+      light.style.top = Math.random() * 100 + "%";
+      light.style.left = Math.random() * 100 + "%";
+      // Random animation duration between 10 and 20 seconds
+      const duration = Math.random() * 10 + 10;
+      light.style.animationDuration = duration + "s";
+      // Random animation delay between 0 and 5 seconds
+      const delay = Math.random() * 5;
+      light.style.animationDelay = delay + "s";
+      // Random translation offsets for float keyframes (between -100 and 100px)
+      const dx = (Math.random() * 200 - 100) + "px";
+      const dy = (Math.random() * 200 - 100) + "px";
+      light.style.setProperty("--dx", dx);
+      light.style.setProperty("--dy", dy);
+      // Randomly pick a color from the palette for the radial gradient
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      light.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+      lightsContainer.appendChild(light);
+    }
     
     // Testimonial Auto Cycle with Dot Indicators and Swipe Support
     const sliderItems = document.querySelectorAll('.testimonial-item');
