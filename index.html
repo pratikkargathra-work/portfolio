@@ -8,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Font Awesome (for icons in testimonials and Why Choose Me) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
   <style>
     /* Global Reset & Font */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -222,6 +224,11 @@
       object-fit: cover;
       margin-right: 15px;
       border: 1px solid rgba(255,255,255,0.3);
+      /* Fallback to person icon if image fails to load */
+    }
+    .testimonial-item img:invalid, 
+    .testimonial-item img[onerror] {
+      /* We override onerror below, so leave this for future CSS fallback if desired */
     }
     .testimonial-item .testimonial-content p {
       font-style: italic;
@@ -267,8 +274,10 @@
       object-fit: cover;
       transition: transform 0.3s;
     }
-    #blogs .blog:hover img {
-      transform: scale(1.1);
+    /* Remove blog image if it fails to load */
+    #blogs .blog img:onerror { display: none; }
+    #blogs .blog img[onerror] {
+      display: none;
     }
     #blogs .blog .content {
       padding: 20px;
@@ -282,7 +291,7 @@
       color: #ccc;
     }
     
-    /* Why Choose Me Section (Reverted to Font Awesome Icons) */
+    /* Why Choose Me Section (Using Font Awesome Icons) */
     #whyus .reasons {
       display: flex;
       flex-wrap: wrap;
@@ -501,19 +510,19 @@
       <p>Some of my recent work</p>
     </div>
     <div class="project-grid">
-      <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
+      <div class="project" style="background-image: url('Assets/Projects/wetime.png');">
         <div class="overlay">
           <h4>Wetime</h4>
           <p>A chat app featuring an in-chat hide option, PIN activation for secure viewing, and a daily chat strike counter.</p>
         </div>
       </div>
-      <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
+      <div class="project" style="background-image: url('Assets/Projects/vidsync.png');">
         <div class="overlay">
           <h4>Vidsync</h4>
           <p>A video streaming platform that minimizes platform fees, allows creators to manage full ad revenue, supports live interactive Q&amp;A, and curates a library of short videos.</p>
         </div>
       </div>
-      <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
+      <div class="project" style="background-image: url('Assets/Projects/stoclytic.png');">
         <div class="overlay">
           <h4>Stoclytic</h4>
           <p>An insightful stock price analysis app leveraging historical data and real-time news for informed investment decisions.</p>
@@ -531,7 +540,7 @@
     <div id="testimonial-slider">
       <div class="testimonial-item active">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Wetime Client">
+        <img src="https://via.placeholder.com/40" alt="Wetime Client" onerror="this.onerror=null; this.src='Assets/placeholder/person.svg';">
         <div class="testimonial-content">
           <p>"The Wetime app revolutionized our internal communications—innovative and reliable."</p>
           <h5>Anil Patel, CEO, Wetime Solutions</h5>
@@ -539,7 +548,7 @@
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Vidsync Client">
+        <img src="https://via.placeholder.com/40" alt="Vidsync Client" onerror="this.onerror=null; this.src='Assets/placeholder/person.svg';">
         <div class="testimonial-content">
           <p>"Vidsync transformed our video streaming experience. Pratik’s expertise made all the difference."</p>
           <h5>Riya Sharma, CTO, Vidsync Media</h5>
@@ -547,7 +556,7 @@
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Stoclytic Client">
+        <img src="https://via.placeholder.com/40" alt="Stoclytic Client" onerror="this.onerror=null; this.src='Assets/placeholder/person.svg';">
         <div class="testimonial-content">
           <p>"Stoclytic delivered deep insights into market trends – truly outstanding analytics."</p>
           <h5>Suresh Gupta, Founder, Stoclytic Analytics</h5>
@@ -565,21 +574,21 @@
     </div>
     <div class="blog-list">
       <div class="blog glass">
-        <img src="https://via.placeholder.com/800x600" alt="Blog 1">
+        <img src="https://via.placeholder.com/800x600" alt="Blog 1" onerror="this.style.display='none';">
         <div class="content">
           <h4>Unlocking the Power of Cybersecurity: The Synergy of AI and Ethical Hacking</h4>
           <p>An exploration of how artificial intelligence and ethical hacking combine to fortify cybersecurity defenses.</p>
         </div>
       </div>
       <div class="blog glass">
-        <img src="https://via.placeholder.com/800x600" alt="Blog 2">
+        <img src="https://via.placeholder.com/800x600" alt="Blog 2" onerror="this.style.display='none';">
         <div class="content">
           <h4>Beyond Imagination: Exploring the Potential of AI and Augmented Reality</h4>
           <p>Dive into the innovative trends that merge artificial intelligence with augmented reality for transformative experiences.</p>
         </div>
       </div>
       <div class="blog glass">
-        <img src="https://via.placeholder.com/800x600" alt="Blog 3">
+        <img src="https://via.placeholder.com/800x600" alt="Blog 3" onerror="this.style.display='none';">
         <div class="content">
           <h4>The Ultimate Guide to Becoming a Top-Quality Developer</h4>
           <p>Discover key skills, best practices, and tips to elevate your development career and produce world-class solutions.</p>
@@ -588,7 +597,7 @@
     </div>
   </section>
 
-  <!-- Why Choose Me Section (Reverted) -->
+  <!-- Why Choose Me Section (Using Font Awesome Icons) -->
   <section id="whyus" class="section">
     <div class="section-title">
       <h2>Why Choose Me</h2>
@@ -645,7 +654,7 @@
     <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Hire Me</button>
   </section>
 
-  <!-- Contact Section (Updated) -->
+  <!-- Contact Section (Updated Title & Description) -->
   <section id="contact" class="section">
     <div class="section-title">
       <h2>Get In Touch</h2>
