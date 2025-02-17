@@ -35,36 +35,34 @@
       transition: background 0.1s;
     }
     
-    /* Floating Lights Container (now absolute so they scroll with content) */
+    /* Floating Lights Container (absolute so they scroll with content) */
     .floating-lights {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      /* Ensure it covers at least full viewport height; it will grow with content */
       min-height: 100vh;
       pointer-events: none;
       z-index: -2;
       overflow: hidden;
     }
-    /* Floating light elements – use radial gradients and keyframe animations */
+    /* Increased size for floating gradient elements */
     .floating-lights .light {
       position: absolute;
       background: radial-gradient(circle, rgba(0,170,255,0.6) 0%, transparent 70%);
-      width: 20px;
-      height: 20px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       opacity: 0.8;
-      animation: float 10s infinite ease-in-out;
+      animation: float 12s infinite ease-in-out;
     }
-    /* Random float animation – you can adjust keyframes as desired */
     @keyframes float {
       0% { transform: translate(0, 0); opacity: 0.8; }
-      50% { transform: translate(50px, -50px); opacity: 0.4; }
+      50% { transform: translate(100px, -100px); opacity: 0.4; }
       100% { transform: translate(0, 0); opacity: 0.8; }
     }
     
-    /* Glassmorphism effect with extra transparency and simple white border on hover */
+    /* Glassmorphism effect with simple white border on hover */
     .glass {
       position: relative;
       background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05));
@@ -145,7 +143,6 @@
       border-radius: 50%;
       transition: background 0.3s, transform 0.3s;
     }
-    /* Social media hover: LinkedIn and Instagram */
     #about .social-links a[href*="linkedin"]:hover {
       background: #0077b5;
     }
@@ -438,7 +435,7 @@
   </style>
 </head>
 <body>
-  <!-- Floating Lights (now absolute so they scroll with page) -->
+  <!-- Floating Lights -->
   <div class="floating-lights">
     <div class="light" style="top: 10%; left: 20%; animation-duration: 12s; animation-delay: 0s;"></div>
     <div class="light" style="top: 40%; left: 70%; animation-duration: 15s; animation-delay: 2s;"></div>
