@@ -116,8 +116,13 @@
       transition: background 0.3s, transform 0.3s;
     }
     /* Social media hover effects */
+    #about .social-links a:hover {
+      transform: scale(1.1);
+    }
     #about .social-links a[href*="linkedin"] { background: #0077b5; }
+    #about .social-links a[href*="medium"] { background: #12100e; }
     #about .social-links a[href*="instagram"] { background: #e1306c; }
+    #about .social-links a[href*="upwork"] { background: #6fda44; }
     
     /* Services Section */
     #services .service-cards {
@@ -408,7 +413,7 @@
   <section id="about" class="fade-in">
     <h1>Pratik Kargathra</h1>
     <p>
-      With four years of hands-on experience in mobile app development, I specialize in Flutter and possess deep expertise in Android and iOS development. I also offer comprehensive web and backend solutions, blending cutting-edge technology with elegant design to create interactive, high-performance experiences.
+      With four years of hands-on experience in mobile app development, I specialize in Flutter while possessing deep expertise in Android and iOS. I also offer comprehensive web and backend solutions, blending cutting-edge technology with elegant design to deliver interactive, high-performance experiences.
     </p>
     <div class="social-links">
       <a href="https://in.linkedin.com/in/pratik-kargathra" target="_blank" title="LinkedIn">
@@ -434,8 +439,8 @@
     </div>
     <div class="service-cards">
       <div class="service glass">
-        <i class="fab fa-android"></i>
-        <h4>Flutter App Development</h4>
+        <i class="fab fa-flutter"></i>
+        <h4>Flutter Development</h4>
         <p>Building seamless cross-platform apps with Flutter.</p>
       </div>
       <div class="service glass">
@@ -482,19 +487,19 @@
       <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
         <div class="overlay">
           <h4>Timeads</h4>
-          <p>A digital board for ads where users can select their preferred time slots to display their advertisements.</p>
+          <p>A digital board for ads where users can select their preferred time slots to display advertisements.</p>
         </div>
       </div>
       <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
         <div class="overlay">
           <h4>Fundry</h4>
-          <p>A crowdfunding platform enabling users to showcase projects or companies seeking funding and connect with potential investors.</p>
+          <p>A crowdfunding platform enabling users to showcase projects or companies seeking funding and connect with investors.</p>
         </div>
       </div>
       <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
         <div class="overlay">
           <h4>Vidsync</h4>
-          <p>A video streaming platform that minimizes platform fees, allows creators to manage full ad revenue, supports interactive live Q&amp;A, and curates a library of short videos.</p>
+          <p>A video streaming platform that minimizes platform fees, allows creators to manage full ad revenue, supports live interactive Q&amp;A, and curates a library of short videos.</p>
         </div>
       </div>
       <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
@@ -603,7 +608,7 @@
       <div class="reason glass">
         <i class="fas fa-expand"></i>
         <h4>Highly Scalable Solutions</h4>
-        <p>Built with scalability in mind so that your business grows without limits.</p>
+        <p>Built with scalability in mind so your business grows without limits.</p>
       </div>
       <div class="reason glass">
         <i class="fas fa-code"></i>
@@ -613,7 +618,7 @@
       <div class="reason glass">
         <i class="fas fa-clock"></i>
         <h4>Timely Delivery</h4>
-        <p>Committed to meeting deadlines without compromising on quality.</p>
+        <p>Committed to meeting deadlines without compromising quality.</p>
       </div>
       <div class="reason glass">
         <i class="fas fa-thumbs-up"></i>
@@ -651,7 +656,7 @@
       <h2>Contact</h2>
       <p>Get in touch today</p>
     </div>
-    <!-- Assuming send_email.php processes the form and emails to pratikkargathra.work@gmail.com -->
+    <!-- The form now points to send_email.php -->
     <form action="send_email.php" method="post">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
