@@ -6,9 +6,8 @@
   <title>Pratik Kargathra - Portfolio</title>
   <!-- Google Font: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Animate.css and Font Awesome -->
+  <!-- Animate.css (for extra animation utilities) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
   <style>
     /* Global Reset & Font */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,30 +33,30 @@
       transition: background 0.1s;
     }
     
-    /* Glassmorphism effect with extra transparency and simple white border on hover */
+    /* Glassmorphism effect */
     .glass {
-      position: relative;
       background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05));
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
       transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-      overflow: hidden;
     }
     .glass:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-      border-color: #fff;
+      border-color: var(--hover-border, #fff);
     }
     
-    /* Fade in animation for sections */
-    .fade-in {
-      animation: fadeIn 1s ease forwards;
+    /* Section Reveal Animation */
+    .section {
       opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
     }
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     /* Section Container */
@@ -90,7 +89,6 @@
     #about h1 {
       font-size: 4em;
       margin-bottom: 20px;
-      color: #fff;
       font-weight: 700;
     }
     #about p {
@@ -100,29 +98,34 @@
       line-height: 1.8;
       color: #ccc;
     }
-    #about .social-links {
+    /* Social Media Buttons */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
       margin-top: 30px;
     }
-    #about .social-links a {
+    .social-links a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 40px;
       height: 40px;
-      margin: 0 12px;
-      color: #fff;
-      border: 1px solid #fff;
       border-radius: 50%;
-      transition: background 0.3s, transform 0.3s;
+      transition: background 0.3s, border 0.3s, transform 0.3s;
+      /* Use CSS variable for brand color */
+      background: var(--brand-color);
     }
-    /* Social media hover effects */
-    #about .social-links a:hover {
+    .social-links a:hover {
+      background: #000;
+      border: 1px solid var(--brand-color);
       transform: scale(1.1);
     }
-    #about .social-links a[href*="linkedin"] { background: #0077b5; }
-    #about .social-links a[href*="medium"] { background: #12100e; }
-    #about .social-links a[href*="instagram"] { background: #e1306c; }
-    #about .social-links a[href*="upwork"] { background: #6fda44; }
+    .social-links a img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
     
     /* Services Section */
     #services .service-cards {
@@ -137,15 +140,14 @@
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #services .service i {
-      font-size: 2.8em;
+    #services .service img {
+      width: 60px;
+      height: 60px;
       margin-bottom: 15px;
-      color: #fff;
     }
     #services .service h4 {
       margin-bottom: 12px;
       font-size: 1.4em;
-      color: #fff;
     }
     #services .service p {
       color: #bbb;
@@ -182,7 +184,6 @@
     #projects .project .overlay h4 {
       font-size: 1.6em;
       margin-bottom: 8px;
-      color: #fff;
     }
     #projects .project .overlay p {
       font-size: 1em;
@@ -212,7 +213,6 @@
     }
     .testimonial-item i.quote {
       font-size: 1.5em;
-      color: #fff;
       margin-right: 10px;
     }
     .testimonial-item img {
@@ -223,18 +223,13 @@
       margin-right: 15px;
       border: 1px solid rgba(255,255,255,0.3);
     }
-    .testimonial-item .testimonial-content {
-      flex: 1;
-    }
     .testimonial-item .testimonial-content p {
       font-style: italic;
       margin: 0 0 5px 0;
-      color: #ccc;
       font-size: 0.95em;
     }
     .testimonial-item .testimonial-content h5 {
       font-size: 1.1em;
-      color: #fff;
       margin: 0;
       font-weight: 600;
     }
@@ -281,7 +276,6 @@
     #blogs .blog .content h4 {
       margin-bottom: 10px;
       font-size: 1.3em;
-      color: #fff;
     }
     #blogs .blog .content p {
       font-size: 0.95em;
@@ -289,12 +283,6 @@
     }
     
     /* Why Choose Me Section */
-    #whyus {
-      text-align: center;
-      padding: 60px 20px;
-      border-radius: 10px;
-      margin-bottom: 50px;
-    }
     #whyus .reasons {
       display: flex;
       flex-wrap: wrap;
@@ -308,15 +296,14 @@
       border-radius: 10px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    #whyus .reason i {
-      font-size: 2.2em;
+    #whyus .reason img {
+      width: 50px;
+      height: 50px;
       margin-bottom: 15px;
-      color: #fff;
     }
     #whyus .reason h4 {
       margin-bottom: 10px;
       font-size: 1.3em;
-      color: #fff;
     }
     #whyus .reason p {
       font-size: 0.95em;
@@ -328,13 +315,10 @@
       text-align: center;
       padding: 80px 20px;
       border-radius: 10px;
-      position: relative;
-      overflow: hidden;
     }
     #hireme h2 {
       font-size: 2.8em;
       margin-bottom: 20px;
-      color: #fff;
     }
     #hireme p {
       font-size: 1.1em;
@@ -389,7 +373,6 @@
     }
     #contact .contact-info i {
       margin-right: 8px;
-      color: #fff;
     }
     
     /* Footer */
@@ -397,6 +380,35 @@
       text-align: center;
       padding: 20px;
       color: #777;
+    }
+    
+    /* Snack Bar for Notifications */
+    #snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #e74c3c;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 16px;
+      position: fixed;
+      z-index: 999;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      font-size: 1em;
+    }
+    #snackbar.show {
+      visibility: visible;
+      animation: fadein 0.5s, fadeout 0.5s 3s;
+    }
+    @keyframes fadein {
+      from {bottom: 0; opacity: 0;} 
+      to {bottom: 30px; opacity: 1;}
+    }
+    @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
     }
     
     /* Responsive */
@@ -410,61 +422,61 @@
 </head>
 <body>
   <!-- About Section -->
-  <section id="about" class="fade-in">
+  <section id="about" class="section">
     <h1>Pratik Kargathra</h1>
     <p>
       With four years of hands-on experience in mobile app development, I specialize in Flutter while possessing deep expertise in Android and iOS. I also offer comprehensive web and backend solutions, blending cutting-edge technology with elegant design to deliver interactive, high-performance experiences.
     </p>
     <div class="social-links">
-      <a href="https://in.linkedin.com/in/pratik-kargathra" target="_blank" title="LinkedIn">
-        <i class="fab fa-linkedin"></i>
+      <a href="https://in.linkedin.com/in/pratik-kargathra" target="_blank" title="LinkedIn" style="--brand-color: #0077b5;">
+        <img src="Assets/Social/linkedin.svg" alt="LinkedIn">
       </a>
-      <a href="https://medium.com/@pratikKargathra" target="_blank" title="Medium">
-        <i class="fab fa-medium"></i>
+      <a href="https://medium.com/@pratikKargathra" target="_blank" title="Medium" style="--brand-color: #12100e;">
+        <img src="Assets/Social/medium.svg" alt="Medium">
       </a>
-      <a href="https://instagram.com/pratik_kargathra" target="_blank" title="Instagram">
-        <i class="fab fa-instagram"></i>
+      <a href="https://instagram.com/pratik_kargathra" target="_blank" title="Instagram" style="--brand-color: #E1306C;">
+        <img src="Assets/Social/instagram.svg" alt="Instagram">
       </a>
-      <a href="https://www.upwork.com/freelancers/~014b987053a5fc64d6?mp_source=share" target="_blank" title="Upwork">
-        <i class="fab fa-upwork"></i>
+      <a href="https://www.upwork.com/freelancers/~014b987053a5fc64d6?mp_source=share" target="_blank" title="Upwork" style="--brand-color: #6fda44;">
+        <img src="Assets/Social/upwork.svg" alt="Upwork">
       </a>
     </div>
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="fade-in">
+  <section id="services" class="section">
     <div class="section-title">
       <h2>Services I Provide</h2>
       <p>What I can do for you</p>
     </div>
     <div class="service-cards">
       <div class="service glass">
-        <i class="fab fa-flutter"></i>
+        <img src="Assets/Services/flutter.svg" alt="Flutter Development Icon">
         <h4>Flutter Development</h4>
         <p>Building seamless cross-platform apps with Flutter.</p>
       </div>
       <div class="service glass">
-        <i class="fab fa-android"></i>
+        <img src="Assets/Services/android.svg" alt="Android App Development Icon">
         <h4>Android App Development</h4>
         <p>Expert native Android solutions for modern devices.</p>
       </div>
       <div class="service glass">
-        <i class="fab fa-apple"></i>
+        <img src="Assets/Services/ios.svg" alt="iOS App Development Icon">
         <h4>iOS App Development</h4>
         <p>Delivering high-performance iOS applications with precision.</p>
       </div>
       <div class="service glass">
-        <i class="fas fa-code"></i>
+        <img src="Assets/Services/web.svg" alt="Web Development Icon">
         <h4>Web Development</h4>
         <p>Crafting responsive, dynamic websites that engage users.</p>
       </div>
       <div class="service glass">
-        <i class="fas fa-server"></i>
+        <img src="Assets/Services/backend.svg" alt="Backend Development Icon">
         <h4>Backend Development</h4>
         <p>Robust and scalable server-side solutions to power your apps.</p>
       </div>
       <div class="service glass">
-        <i class="fas fa-pencil-ruler"></i>
+        <img src="Assets/Services/uiux.svg" alt="UI/UX Icon">
         <h4>UI/UX Design &amp; Prototyping</h4>
         <p>Designing intuitive interfaces and prototypes for both web and mobile.</p>
       </div>
@@ -472,7 +484,7 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="fade-in">
+  <section id="projects" class="section">
     <div class="section-title">
       <h2>Projects</h2>
       <p>Some of my recent work</p>
@@ -512,14 +524,14 @@
   </section>
 
   <!-- Testimonials Section -->
-  <section id="testimonials" class="fade-in">
+  <section id="testimonials" class="section">
     <div class="section-title">
       <h2>Testimonials</h2>
       <p>What my clients say</p>
     </div>
     <div id="testimonial-slider">
       <div class="testimonial-item active">
-        <i class="fas fa-quote-left quote"></i>
+        <i class="quote"><!-- You can optionally use an SVG for quote icon --></i>
         <img src="https://via.placeholder.com/40" alt="Anil Patel">
         <div class="testimonial-content">
           <p>"Pratik delivered an outstanding product on schedule with exceptional quality."</p>
@@ -527,7 +539,7 @@
         </div>
       </div>
       <div class="testimonial-item">
-        <i class="fas fa-quote-left quote"></i>
+        <i class="quote"></i>
         <img src="https://via.placeholder.com/40" alt="Riya Sharma">
         <div class="testimonial-content">
           <p>"His creative approach and technical skills transformed our project into a success."</p>
@@ -535,7 +547,7 @@
         </div>
       </div>
       <div class="testimonial-item">
-        <i class="fas fa-quote-left quote"></i>
+        <i class="quote"></i>
         <img src="https://via.placeholder.com/40" alt="Suresh Gupta">
         <div class="testimonial-content">
           <p>"I highly recommend Pratik for any development needs – his work exceeded our expectations."</p>
@@ -543,7 +555,7 @@
         </div>
       </div>
       <div class="testimonial-item">
-        <i class="fas fa-quote-left quote"></i>
+        <i class="quote"></i>
         <img src="https://via.placeholder.com/40" alt="Divya Mehta">
         <div class="testimonial-content">
           <p>"A truly innovative and dedicated professional who communicates clearly and effectively."</p>
@@ -551,7 +563,7 @@
         </div>
       </div>
       <div class="testimonial-item">
-        <i class="fas fa-quote-left quote"></i>
+        <i class="quote"></i>
         <img src="https://via.placeholder.com/40" alt="Rohan Verma">
         <div class="testimonial-content">
           <p>"The quality, speed, and dedication of Pratik's work are unparalleled."</p>
@@ -563,7 +575,7 @@
   </section>
 
   <!-- Blogs Section -->
-  <section id="blogs" class="fade-in">
+  <section id="blogs" class="section">
     <div class="section-title">
       <h2>Blogs</h2>
       <p>Latest insights and articles</p>
@@ -594,49 +606,49 @@
   </section>
 
   <!-- Why Choose Me Section -->
-  <section id="whyus" class="fade-in">
+  <section id="whyus" class="section">
     <div class="section-title">
       <h2>Why Choose Me</h2>
       <p>The benefits of working with me</p>
     </div>
     <div class="reasons">
       <div class="reason glass">
-        <i class="fas fa-award"></i>
+        <img src="Assets/Services/quality.svg" alt="Quality Icon">
         <h4>Uncompromising Quality</h4>
         <p>Delivering excellence in every project through best-in-class technology and design.</p>
       </div>
       <div class="reason glass">
-        <i class="fas fa-expand"></i>
+        <img src="Assets/Services/scalable.svg" alt="Scalable Icon">
         <h4>Highly Scalable Solutions</h4>
         <p>Built with scalability in mind so your business grows without limits.</p>
       </div>
       <div class="reason glass">
-        <i class="fas fa-code"></i>
+        <img src="Assets/Services/architecture.svg" alt="Clean Architecture Icon">
         <h4>Clean Architecture</h4>
         <p>Following the latest coding standards and best practices for robust, maintainable systems.</p>
       </div>
       <div class="reason glass">
-        <i class="fas fa-clock"></i>
+        <img src="Assets/Services/timely.svg" alt="Timely Delivery Icon">
         <h4>Timely Delivery</h4>
         <p>Committed to meeting deadlines without compromising quality.</p>
       </div>
       <div class="reason glass">
-        <i class="fas fa-thumbs-up"></i>
+        <img src="Assets/Services/satisfaction.svg" alt="Client Satisfaction Icon">
         <h4>Client Satisfaction</h4>
         <p>Your success is my priority – I work tirelessly to exceed your expectations.</p>
       </div>
       <div class="reason glass">
-        <i class="fas fa-comments"></i>
+        <img src="Assets/Services/communication.svg" alt="Communication Icon">
         <h4>Clear Communication</h4>
         <p>Understanding your vision and keeping you updated at every step.</p>
       </div>
       <div class="reason glass">
-        <i class="fas fa-sync-alt"></i>
+        <img src="Assets/Services/updates.svg" alt="Regular Updates Icon">
         <h4>Regular Updates</h4>
         <p>Keeping you informed with progress reports and milestone achievements.</p>
       </div>
       <div class="reason glass">
-        <i class="fas fa-check-circle"></i>
+        <img src="Assets/Services/tested.svg" alt="Fully Tested Icon">
         <h4>Fully Tested</h4>
         <p>Every solution undergoes rigorous testing to ensure flawless performance.</p>
       </div>
@@ -644,20 +656,19 @@
   </section>
 
   <!-- Hire Me Section -->
-  <section id="hireme" class="fade-in">
+  <section id="hireme" class="section">
     <h2>Ready to Get Started?</h2>
     <p>Let’s collaborate to bring your vision to life with cutting-edge technology and exceptional design. Together, we can create something truly amazing.</p>
     <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Hire Me</button>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="fade-in">
+  <section id="contact" class="section">
     <div class="section-title">
       <h2>Contact</h2>
       <p>Get in touch today</p>
     </div>
-    <!-- The form now points to send_email.php -->
-    <form action="send_email.php" method="post">
+    <form id="contactForm">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
@@ -675,28 +686,39 @@
     <p>&copy; 2025 Pratik Kargathra. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript for Background Pointer Reaction and Testimonial Auto Cycle with Swipe Support -->
+  <!-- Snack Bar for Error Notifications -->
+  <div id="snackbar"></div>
+
+  <!-- JavaScript -->
   <script>
     // Update background gradient based on mouse position
     document.addEventListener("mousemove", (e) => {
       document.body.style.setProperty('--mouse-x', e.clientX + 'px');
       document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     });
+
+    // Intersection Observer for Section Reveal
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(section => observer.observe(section));
     
-    // Testimonial Auto Cycle with Dot Indicators and Swipe Support
+    // Testimonial Slider
     const sliderItems = document.querySelectorAll('.testimonial-item');
     const dotsContainer = document.getElementById('testimonial-dots');
     let currentTestimonial = 0;
     const numTestimonials = sliderItems.length;
     
-    // Create dots
     sliderItems.forEach((item, index) => {
       const dot = document.createElement('span');
       if(index === 0) dot.classList.add('active');
       dot.dataset.index = index;
-      dot.addEventListener('click', () => {
-        showTestimonial(index);
-      });
+      dot.addEventListener('click', () => showTestimonial(index));
       dotsContainer.appendChild(dot);
     });
     
@@ -708,28 +730,45 @@
       dotsContainer.children[currentTestimonial].classList.add('active');
     }
     
-    // Auto cycle every 4 seconds
     setInterval(() => {
       let next = (currentTestimonial + 1) % numTestimonials;
       showTestimonial(next);
     }, 4000);
+
+    // AJAX Contact Form Submission with Snack Bar for errors
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(contactForm);
+      fetch('send_email.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error: ' + response.status);
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Optionally, show success message or clear form
+        contactForm.reset();
+        showSnackbar('Thank you! Your message has been sent.', '#27ae60');
+      })
+      .catch(error => {
+        showSnackbar('Failed to send message. Please try again later.', '#e74c3c');
+        console.error(error);
+      });
+    });
     
-    // Swipe support for mobile
-    let touchStartX = null;
-    const testimonialSlider = document.getElementById('testimonial-slider');
-    testimonialSlider.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].clientX;
-    });
-    testimonialSlider.addEventListener('touchend', (e) => {
-      if(touchStartX === null) return;
-      let touchEndX = e.changedTouches[0].clientX;
-      if(touchStartX - touchEndX > 50) {
-        showTestimonial((currentTestimonial + 1) % numTestimonials);
-      } else if(touchEndX - touchStartX > 50) {
-        showTestimonial((currentTestimonial - 1 + numTestimonials) % numTestimonials);
-      }
-      touchStartX = null;
-    });
+    // Snack Bar Function
+    function showSnackbar(message, bgColor) {
+      const snackbar = document.getElementById('snackbar');
+      snackbar.textContent = message;
+      snackbar.style.backgroundColor = bgColor;
+      snackbar.className = "show";
+      setTimeout(() => { snackbar.className = snackbar.className.replace("show", ""); }, 4000);
+    }
   </script>
 </body>
 </html>
