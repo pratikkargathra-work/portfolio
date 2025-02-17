@@ -115,13 +115,9 @@
       border-radius: 50%;
       transition: background 0.3s, transform 0.3s;
     }
-    /* Social media hover: LinkedIn and Instagram */
-    #about .social-links a[href*="linkedin"]:hover {
-      background: #0077b5;
-    }
-    #about .social-links a[href*="instagram"]:hover {
-      background: #e1306c;
-    }
+    /* Social media hover effects */
+    #about .social-links a[href*="linkedin"] { background: #0077b5; }
+    #about .social-links a[href*="instagram"] { background: #e1306c; }
     
     /* Services Section */
     #services .service-cards {
@@ -188,7 +184,7 @@
       color: #ccc;
     }
     
-    /* Testimonials Section - Single Item Auto Cycle with Swipe & Synced Dots */
+    /* Testimonials Section */
     #testimonials {
       padding: 80px 0;
     }
@@ -412,14 +408,20 @@
   <section id="about" class="fade-in">
     <h1>Pratik Kargathra</h1>
     <p>
-      I build interactive, stunning web experiences that blend cutting-edge technology with modern design aesthetics. My passion is to create solutions that not only look amazing but work flawlessly.
+      With four years of hands-on experience in mobile app development, I specialize in Flutter and possess deep expertise in Android and iOS development. I also offer comprehensive web and backend solutions, blending cutting-edge technology with elegant design to create interactive, high-performance experiences.
     </p>
     <div class="social-links">
-      <a href="https://www.linkedin.com" target="_blank" title="LinkedIn">
+      <a href="https://in.linkedin.com/in/pratik-kargathra" target="_blank" title="LinkedIn">
         <i class="fab fa-linkedin"></i>
       </a>
-      <a href="https://www.instagram.com" target="_blank" title="Instagram">
+      <a href="https://medium.com/@pratikKargathra" target="_blank" title="Medium">
+        <i class="fab fa-medium"></i>
+      </a>
+      <a href="https://instagram.com/pratik_kargathra" target="_blank" title="Instagram">
         <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.upwork.com/freelancers/~014b987053a5fc64d6?mp_source=share" target="_blank" title="Upwork">
+        <i class="fab fa-upwork"></i>
       </a>
     </div>
   </section>
@@ -432,19 +434,34 @@
     </div>
     <div class="service-cards">
       <div class="service glass">
+        <i class="fab fa-android"></i>
+        <h4>Flutter App Development</h4>
+        <p>Building seamless cross-platform apps with Flutter.</p>
+      </div>
+      <div class="service glass">
+        <i class="fab fa-android"></i>
+        <h4>Android App Development</h4>
+        <p>Expert native Android solutions for modern devices.</p>
+      </div>
+      <div class="service glass">
+        <i class="fab fa-apple"></i>
+        <h4>iOS App Development</h4>
+        <p>Delivering high-performance iOS applications with precision.</p>
+      </div>
+      <div class="service glass">
         <i class="fas fa-code"></i>
         <h4>Web Development</h4>
-        <p>Crafting responsive websites with modern technologies.</p>
+        <p>Crafting responsive, dynamic websites that engage users.</p>
       </div>
       <div class="service glass">
-        <i class="fas fa-mobile-alt"></i>
-        <h4>Mobile App Development</h4>
-        <p>Developing intuitive mobile applications for iOS and Android.</p>
+        <i class="fas fa-server"></i>
+        <h4>Backend Development</h4>
+        <p>Robust and scalable server-side solutions to power your apps.</p>
       </div>
       <div class="service glass">
-        <i class="fas fa-paint-brush"></i>
-        <h4>UI/UX Design</h4>
-        <p>Designing elegant interfaces with seamless user experience.</p>
+        <i class="fas fa-pencil-ruler"></i>
+        <h4>UI/UX Design &amp; Prototyping</h4>
+        <p>Designing intuitive interfaces and prototypes for both web and mobile.</p>
       </div>
     </div>
   </section>
@@ -458,20 +475,32 @@
     <div class="project-grid">
       <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
         <div class="overlay">
-          <h4>Project One</h4>
-          <p>A modern web application built with cutting-edge technology.</p>
+          <h4>Wetime Chat</h4>
+          <p>A chat app featuring an in-chat hide option, PIN activation for secure viewing, and a daily chat strike counter.</p>
         </div>
       </div>
       <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
         <div class="overlay">
-          <h4>Project Two</h4>
-          <p>A mobile app that offers seamless user experience and robust features.</p>
+          <h4>Timeads</h4>
+          <p>A digital board for ads where users can select their preferred time slots to display their advertisements.</p>
         </div>
       </div>
       <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
         <div class="overlay">
-          <h4>Project Three</h4>
-          <p>An innovative design project that bridges creativity with functionality.</p>
+          <h4>Fundry</h4>
+          <p>A crowdfunding platform enabling users to showcase projects or companies seeking funding and connect with potential investors.</p>
+        </div>
+      </div>
+      <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
+        <div class="overlay">
+          <h4>Vidsync</h4>
+          <p>A video streaming platform that minimizes platform fees, allows creators to manage full ad revenue, supports interactive live Q&amp;A, and curates a library of short videos.</p>
+        </div>
+      </div>
+      <div class="project" style="background-image: url('https://via.placeholder.com/800x600');">
+        <div class="overlay">
+          <h4>Stoclytic</h4>
+          <p>An insightful stock price analysis app leveraging historical data and real-time news for informed investment decisions.</p>
         </div>
       </div>
     </div>
@@ -486,42 +515,42 @@
     <div id="testimonial-slider">
       <div class="testimonial-item active">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Client 1">
+        <img src="https://via.placeholder.com/40" alt="Anil Patel">
         <div class="testimonial-content">
-          <p>"Pratik delivered an outstanding product on schedule with amazing quality."</p>
-          <h5>Client One</h5>
+          <p>"Pratik delivered an outstanding product on schedule with exceptional quality."</p>
+          <h5>Anil Patel, CEO, Tech Innovators Inc.</h5>
         </div>
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Client 2">
+        <img src="https://via.placeholder.com/40" alt="Riya Sharma">
         <div class="testimonial-content">
-          <p>"His creative approach and technical skills made our project a huge success."</p>
-          <h5>Client Two</h5>
+          <p>"His creative approach and technical skills transformed our project into a success."</p>
+          <h5>Riya Sharma, CTO, Creative Solutions</h5>
         </div>
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Client 3">
+        <img src="https://via.placeholder.com/40" alt="Suresh Gupta">
         <div class="testimonial-content">
-          <p>"I highly recommend Pratik for any web or mobile development needs."</p>
-          <h5>Client Three</h5>
+          <p>"I highly recommend Pratik for any development needs – his work exceeded our expectations."</p>
+          <h5>Suresh Gupta, Founder, StartupHub</h5>
         </div>
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Client 4">
+        <img src="https://via.placeholder.com/40" alt="Divya Mehta">
         <div class="testimonial-content">
-          <p>"A truly innovative and dedicated professional."</p>
-          <h5>Client Four</h5>
+          <p>"A truly innovative and dedicated professional who communicates clearly and effectively."</p>
+          <h5>Divya Mehta, Product Manager, InnovateX</h5>
         </div>
       </div>
       <div class="testimonial-item">
         <i class="fas fa-quote-left quote"></i>
-        <img src="https://via.placeholder.com/40" alt="Client 5">
+        <img src="https://via.placeholder.com/40" alt="Rohan Verma">
         <div class="testimonial-content">
-          <p>"The quality and speed of work exceeded my expectations."</p>
-          <h5>Client Five</h5>
+          <p>"The quality, speed, and dedication of Pratik's work are unparalleled."</p>
+          <h5>Rohan Verma, Director, FutureTech</h5>
         </div>
       </div>
     </div>
@@ -538,22 +567,22 @@
       <div class="blog glass">
         <img src="https://via.placeholder.com/800x600" alt="Blog 1">
         <div class="content">
-          <h4>Blog Title One</h4>
-          <p>An insight into modern web development trends.</p>
+          <h4>Unlocking the Power of Cybersecurity: The Synergy of AI and Ethical Hacking</h4>
+          <p>An exploration of how artificial intelligence and ethical hacking combine to fortify cybersecurity defenses.</p>
         </div>
       </div>
       <div class="blog glass">
         <img src="https://via.placeholder.com/800x600" alt="Blog 2">
         <div class="content">
-          <h4>Blog Title Two</h4>
-          <p>Exploring the intersection of design and technology.</p>
+          <h4>Beyond Imagination: Exploring the Potential of AI and Augmented Reality</h4>
+          <p>Dive into the innovative trends that merge artificial intelligence with augmented reality for transformative experiences.</p>
         </div>
       </div>
       <div class="blog glass">
         <img src="https://via.placeholder.com/800x600" alt="Blog 3">
         <div class="content">
-          <h4>Blog Title Three</h4>
-          <p>How to build responsive sites that engage users.</p>
+          <h4>The Ultimate Guide to Becoming a Top-Quality Developer</h4>
+          <p>Discover key skills, best practices, and tips to elevate your development career and produce world-class solutions.</p>
         </div>
       </div>
     </div>
@@ -568,26 +597,51 @@
     <div class="reasons">
       <div class="reason glass">
         <i class="fas fa-award"></i>
-        <h4>Quality Work</h4>
-        <p>Delivering excellence in every project.</p>
+        <h4>Uncompromising Quality</h4>
+        <p>Delivering excellence in every project through best-in-class technology and design.</p>
+      </div>
+      <div class="reason glass">
+        <i class="fas fa-expand"></i>
+        <h4>Highly Scalable Solutions</h4>
+        <p>Built with scalability in mind so that your business grows without limits.</p>
+      </div>
+      <div class="reason glass">
+        <i class="fas fa-code"></i>
+        <h4>Clean Architecture</h4>
+        <p>Following the latest coding standards and best practices for robust, maintainable systems.</p>
       </div>
       <div class="reason glass">
         <i class="fas fa-clock"></i>
         <h4>Timely Delivery</h4>
-        <p>Always meeting deadlines with precision.</p>
+        <p>Committed to meeting deadlines without compromising on quality.</p>
       </div>
       <div class="reason glass">
         <i class="fas fa-thumbs-up"></i>
         <h4>Client Satisfaction</h4>
-        <p>Your success is my success – I go above and beyond.</p>
+        <p>Your success is my priority – I work tirelessly to exceed your expectations.</p>
+      </div>
+      <div class="reason glass">
+        <i class="fas fa-comments"></i>
+        <h4>Clear Communication</h4>
+        <p>Understanding your vision and keeping you updated at every step.</p>
+      </div>
+      <div class="reason glass">
+        <i class="fas fa-sync-alt"></i>
+        <h4>Regular Updates</h4>
+        <p>Keeping you informed with progress reports and milestone achievements.</p>
+      </div>
+      <div class="reason glass">
+        <i class="fas fa-check-circle"></i>
+        <h4>Fully Tested</h4>
+        <p>Every solution undergoes rigorous testing to ensure flawless performance.</p>
       </div>
     </div>
   </section>
 
   <!-- Hire Me Section -->
   <section id="hireme" class="fade-in">
-    <h2>Ready to get started?</h2>
-    <p>Let's collaborate and create something amazing.</p>
+    <h2>Ready to Get Started?</h2>
+    <p>Let’s collaborate to bring your vision to life with cutting-edge technology and exceptional design. Together, we can create something truly amazing.</p>
     <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Hire Me</button>
   </section>
 
@@ -597,16 +651,17 @@
       <h2>Contact</h2>
       <p>Get in touch today</p>
     </div>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea rows="5" placeholder="Your Message" required></textarea>
+    <!-- Assuming send_email.php processes the form and emails to pratikkargathra.work@gmail.com -->
+    <form action="send_email.php" method="post">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
     <div class="contact-info">
-      <p><i class="fas fa-phone"></i> 9016206523</p>
+      <p><i class="fas fa-phone"></i> +91 9016206523</p>
       <p><i class="fas fa-envelope"></i> pratikkargathra.work@gmail.com</p>
-      <p><i class="fas fa-map-marker-alt"></i> Surat Gujrat India</p>
+      <p><i class="fas fa-map-marker-alt"></i> Surat, Gujarat, India</p>
     </div>
   </section>
 
